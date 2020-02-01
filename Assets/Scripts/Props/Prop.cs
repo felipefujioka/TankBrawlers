@@ -8,12 +8,8 @@ public abstract class Prop: MonoBehaviour
     public bool CanStun;
     protected abstract void onCollide(Prop collidedProp);
     public Rigidbody2D rigidbody;
-    private Collider2D collider;
-
-    void Start()
-    {
-        collider = GetComponent<Collider2D>();
-    }
+    public Collider2D collider;
+    
 
     public void GrabProp(PlayerView playerView)
     {

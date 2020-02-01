@@ -41,7 +41,7 @@ namespace DefaultNamespace
         }
 
 
-        public DestructiveProp TryGrab(Vector2 direction)
+        public Prop TryGrab(Vector2 direction)
         {
             var count = Physics2D.RaycastNonAlloc(Center.transform.position, direction, grabHitBuffer,
                 0.5f);
@@ -55,7 +55,7 @@ namespace DefaultNamespace
                 {
                     continue;
                 }
-                var destructible = hit.collider.GetComponent<DestructiveProp>();
+                var destructible = hit.collider.GetComponent<Prop>();
                 if (destructible != null)
                 {
                     return destructible;

@@ -12,13 +12,18 @@ public class TankController
     private TankGraphics tankGraphics;
     public Bullet bullet;
 
+    private int life = 1;
+
     //TODO remove
     private float timer = 0; 
     public bool IsAlive()
     {
-        timer += Time.deltaTime;
+        return life > 0;
+    }
 
-        return timer < 5f;
+    public void TakeDamage()
+    {
+        life--;
     }
     
     public TankController(TankGraphics graphics, Team tankTeam)

@@ -12,8 +12,8 @@ public class PlayerController
 
     private float horizontalMovement;
 
-    private DestructiveProp holdingPropRef;
-    private DestructiveProp holdingProp
+    private Prop holdingPropRef;
+    private Prop holdingProp
     {
         get => holdingPropRef;
         set
