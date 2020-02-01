@@ -6,6 +6,7 @@ public class TankController
     public int CurrentLife;
     public List<TankSlot> TankSlots;
     private int filledSlots => TankSlots.FindAll(s => s.IsFilled).Count;
+    public bool isRepaired => TankSlots.Count == filledSlots;
     private TankGraphics tankGraphics;
     public Bullet bullet;
     public TankController(TankGraphics graphics, Team tankTeam)
@@ -19,8 +20,6 @@ public class TankController
             TankSlots.Add(slot);
         }
 
-
-
         tankGraphics = graphics;
     }
 
@@ -30,6 +29,10 @@ public class TankController
 
         bullet.transform.SetParent(tankGraphics.transform);
         bullet.transform.localPosition = Vector3.zero;
-    
+    }
+
+    public void RemoveBullet()
+    {
+        bullet = null;
     }
 }

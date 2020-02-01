@@ -17,5 +17,6 @@ public class TankSlotGraphics : MonoBehaviour
         tankSlot.Piece = piece;
         piece.transform.SetParent(transform);
         piece.transform.localPosition = Vector3.zero;
+        tankSlot.IsFilled = true;
     }
 }
