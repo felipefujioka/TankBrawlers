@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float axisOffsetX;
     public int ID;
 
     public PlayerView view;
