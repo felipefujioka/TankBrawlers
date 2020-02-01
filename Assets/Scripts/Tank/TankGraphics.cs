@@ -8,10 +8,16 @@ public class TankGraphics : MonoBehaviour
     public List<TankSlotGraphics> TankSlotsGraphics;
     //public TankSlotGraphics tankSlotPrefab;
     private TankController tankController;
+    public Team color;
 
     private void Start()
     {
-        tankController = new TankController(this);
+        tankController = new TankController(this, color);
+        
+        if(color == Team.Blue)
+            gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+        else
+            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         LoadTankSlots();
     }
 
@@ -35,17 +41,28 @@ public class TankGraphics : MonoBehaviour
         {
             var piece = other.GetComponent<TankPiece>();
             //if(Input.GetButtonDown("Grab1"))
-
+      
+            
             for (int i = 0; i < tankController.TankSlots.Count; i++)
             {
-                if(piece!=null)
+                var slot = tankController.TankSlots[i];
+                if(slot.Id == piece.Id && color == piece.color)
                 {
-                    if(tankController.TankSlots[i].Id == piece.Id)
                     TankSlotsGraphics[i].AddSlotPiece(piece);
 
                     piece.cancelGravity();
                 }
-            }
+            }            
+        }
+
+        if (other.gameObject.tag == GameConstants.BULLET_TAG)
+        {
+            var bullet = other.GetComponent<Bullet>();
+            //if(Input.GetButtonDown("Grab1"))
+
+            tankController.AddBullet(bullet);
+
+            bullet.cancelGravity();     
         }
     }
 }

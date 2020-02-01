@@ -4,15 +4,22 @@ public class TankPiece : Prop
     private Team team;
     public string Id;
     
-    public Rigidbody2D rb;
+   
+
+    public Team color;
+
+    private void Start()
+    {        
+        if(color == Team.Blue)
+            gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+        else
+            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+    }
+
     protected override void onCollide(Prop p)
     {
         throw new System.NotImplementedException();
     }
 
-    public void cancelGravity()
-    {
-        rb.gravityScale = 0;
-        rb.velocity = Vector3.zero;
-    }
+   
 }

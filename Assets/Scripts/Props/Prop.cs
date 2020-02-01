@@ -5,12 +5,8 @@ public abstract class Prop: MonoBehaviour
 {
     public bool CanStun;
     protected abstract void onCollide(Prop collidedProp);
-    private Rigidbody2D rigidbody;
+    public Rigidbody2D rb;
 
-    void Start()
-    {
-        rigidbody = GetComponent<Rigidbody2D>();
-    }
     public void GrabProp(PlayerView playerView)
     {
         transform.SetParent(playerView.holdingPosition);
@@ -20,13 +16,19 @@ public abstract class Prop: MonoBehaviour
     protected void DropProp()
     {
         transform.SetParent(null);
-        rigidbody.AddForce(Vector3.up * 10);
+        rb.AddForce(Vector3.up * 10);
     }
 
     public void ThrowDrop(Vector3 direction)
     {
         CanStun = true;
         transform.SetParent(null);
-        rigidbody.AddForce(direction * 10);
+        rb.AddForce(direction * 10);
+    }
+
+     public void cancelGravity()
+    {
+        rb.gravityScale = 0;
+        rb.velocity = Vector3.zero;
     }
 }
