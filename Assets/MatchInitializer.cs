@@ -54,7 +54,7 @@ namespace DefaultNamespace
             {
                 if (playerController.IsGrabbing)
                 {
-                    playerController.Throw(new Vector2(horizontal, vertical));
+                    playerController.Throw(new Vector2(horizontal, -vertical));
                 }
                 else
                 {

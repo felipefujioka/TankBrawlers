@@ -12,7 +12,16 @@ public class PlayerController
 
     private float horizontalMovement;
 
-    private DestructiveProp holdingProp;
+    private DestructiveProp holdingPropRef;
+    private DestructiveProp holdingProp
+    {
+        get => holdingPropRef;
+        set
+        {
+            holdingPropRef = value;
+            IsGrabbing = value != null;
+        }
+    }
     
     public void ApplyHorizontalMovement(float horizontal)
     {
@@ -21,6 +30,7 @@ public class PlayerController
 
     public void Jump()
     {
+        Debug.Log("JUMP!");
         view.SetVerticalMovement(view.jumpTakeOffSpeed);
     }
 
@@ -43,6 +53,10 @@ public class PlayerController
 
     public void Throw(Vector2 direction)
     {
-        throw new System.NotImplementedException();
+        if (holdingProp != null)
+        {
+            holdingProp.ThrowDrop(direction);
+            holdingProp = null;
+        }
     }
 }
