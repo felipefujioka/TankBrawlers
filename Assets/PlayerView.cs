@@ -5,6 +5,7 @@ namespace DefaultNamespace
 {
     public class PlayerView : PhysicsObject
     {
+        public Transform Center;
         public Rigidbody2D body;
         public Collider2D collider;
         
@@ -42,11 +43,10 @@ namespace DefaultNamespace
 
         public DestructiveProp TryGrab(Vector2 direction)
         {
-            Debug.Log(transform.position);
-            var count = Physics2D.RaycastNonAlloc(transform.position, direction, grabHitBuffer,
+            var count = Physics2D.RaycastNonAlloc(Center.transform.position, direction, grabHitBuffer,
                 0.5f);
             
-            Debug.DrawRay(transform.position, direction, Color.red);
+            Debug.DrawRay(Center.transform.position, direction, Color.red);
 
             for (int i = 0; i < count; i++)
             {
