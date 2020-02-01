@@ -11,4 +11,11 @@ public class TankSlotGraphics : MonoBehaviour
     {
         tankSlot = slot;
     }
+
+    public void AddSlotPiece(TankPiece piece)
+    {
+        tankSlot.Piece = piece;
+        piece.transform.SetParent(transform);
+        piece.transform.localPosition = Vector3.zero;
+    }
 }

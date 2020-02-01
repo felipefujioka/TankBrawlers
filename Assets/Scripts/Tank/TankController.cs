@@ -10,11 +10,17 @@ public class TankController
 
     public TankController(TankGraphics graphics)
     {
+        TankSlots = new List<TankSlot>();
+
+
         for (int i = 0; i < GameConstants.TANK_SLOTS; i++)
         {
-            TankSlot slot = new TankSlot();
+            TankSlot slot = new TankSlot{Id= "slot" + i};
             TankSlots.Add(slot);
         }
+
+
+
         tankGraphics = graphics;
     }
 }
