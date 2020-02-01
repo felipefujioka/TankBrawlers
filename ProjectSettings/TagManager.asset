@@ -6,8 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Bullet
-  - Prop
   - TankPiece
+  - Prop
   layers:
   - Default
   - TransparentFX
@@ -29,7 +29,7 @@ TagManager:
   - EnemyWeapon
   - BossWeakPoint
   - Bullet
-  - 
+  - Tank
   - 
   - 
   - 

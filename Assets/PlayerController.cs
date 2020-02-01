@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController
 {
     public int ID;
 
