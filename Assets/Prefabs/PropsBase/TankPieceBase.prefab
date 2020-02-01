@@ -96,11 +96,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5f701c18ddcd94388eb595263aa8ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThrowBoost: 5
+  ThrowBoost: 30
   CanStun: 0
+  IsHighlighted: 0
   rigidbody: {fileID: 4049856445365646642}
   collider: {fileID: 0}
+  propSprite: {fileID: 6343695064583360825}
+  material: {fileID: 2100000, guid: db12b25bef8c0e643b9ea2383e0b445d, type: 2}
   colliderInProps: {fileID: 195456912867701762}
+  team: 0
   Id: slot2
   color: 0
 --- !u!61 &195456912867701762

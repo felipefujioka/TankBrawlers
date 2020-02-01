@@ -37,6 +37,16 @@ public class PlayerController
         view.SetVerticalMovement(view.jumpTakeOffSpeed);
     }
 
+    public void TargetProp(Vector2 direction)
+    {
+        view.TryHighlight(direction);
+    }
+
+    public void DisableTarget()
+    {
+        view.DisableHighlight();
+    }
+
     public void Grab(Vector2 direction)
     {
         if (holdingProp != null)

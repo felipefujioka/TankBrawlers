@@ -10,12 +10,14 @@ public static class GameConstants
     public static string PROP_TAG = "Prop";
     public static string TANK_PIECE_TAG = "TankPiece";
     public static string PLAYER_TAG = "Player";
+    public static string OUTLINE_BRIGHTNESS_TAG = "_Brightness";
 
     public static int TANK_SLOTS = 4;
 
     public static float PROP_SPAWN_DELAY = 2f;
 
     public static float TIME_TO_REPAIR = 2f;
+    public static float HIGHTLIGHT_DELAY = 1f;
     
     public static IEnumerator WaitForTime(float time, Action callback)
     {

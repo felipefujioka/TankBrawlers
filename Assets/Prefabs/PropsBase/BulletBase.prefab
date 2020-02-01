@@ -97,10 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4de8c317f2289946adec1e29354be5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThrowBoost: 5
+  ThrowBoost: 30
   CanStun: 0
+  IsHighlighted: 0
   rigidbody: {fileID: 7384105057703528075}
   collider: {fileID: 7603864676883115853}
+  propSprite: {fileID: 8664439151727248617}
+  material: {fileID: 2100000, guid: db12b25bef8c0e643b9ea2383e0b445d, type: 2}
   colliderInProps: {fileID: 7603864676883115853}
 --- !u!61 &7603864676883115853
 BoxCollider2D:

@@ -70,6 +70,11 @@ namespace DefaultNamespace
             var vertical = Input.GetAxis(GameInput.GetInput(playerController.ID, "Vertical"));
 
             playerController.ApplyHorizontalMovement(horizontal);
+            
+            if(horizontal== 0 && vertical == 0)
+                playerController.DisableTarget();
+            else
+                playerController.TargetProp(new Vector2(horizontal, -vertical));
 
             if (Input.GetButtonDown(GameInput.GetInput(playerController.ID, "Jump")))
             {
