@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -8,14 +10,21 @@ namespace DefaultNamespace
 {
     public class MatchInitializer : MonoBehaviour
     {
+        public List<TankGraphics> Tanks;
+        
         public List<Transform> SpawnPoints;
 
         public List<PlayerController> PlayerControllers;
 
         [FormerlySerializedAs("playerPrefab")] public PlayerView PlayerPrefab;
 
+        public GameObject InitScreen;
+        public EndScreen EndScreen;
+
         private void Start()
         {
+            InitScreen.SetActive(true);
+            
             PlayerControllers = new List<PlayerController>();
             for (int i = 0; i < 2; i++)
             {
@@ -28,6 +37,22 @@ namespace DefaultNamespace
                 
                 PlayerControllers.Add(player);
             }
+
+            StartCoroutine(MatchRoutine());
+        }
+
+        private IEnumerator MatchRoutine()
+        {
+            var tank1 = Tanks[0];
+            var tank2 = Tanks[1];
+            while (tank1.tankController.IsAlive() && tank2.tankController.IsAlive())
+            {
+                yield return null;
+            }
+            
+            EndScreen.gameObject.SetActive(true);
+            EndScreen.VictoryLabel.text =
+                $"{(tank1.tankController.IsAlive() ? "<color=blue>BLUE</color>" : "<color=red>RED</color>")} TEAM WINS!";
         }
 
         private void Update()

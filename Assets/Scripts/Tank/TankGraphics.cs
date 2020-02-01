@@ -7,7 +7,7 @@ public class TankGraphics : MonoBehaviour
 {
     public List<TankSlotGraphics> TankSlotsGraphics;
     //public TankSlotGraphics tankSlotPrefab;
-    private TankController tankController;
+    public TankController tankController;
     public Team color;
 
     private void Start()
