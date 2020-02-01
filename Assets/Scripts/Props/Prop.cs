@@ -42,4 +42,10 @@ public abstract class Prop: MonoBehaviour
         rigidbody.bodyType = RigidbodyType2D.Dynamic;
         collider.enabled = true;
     }
+    public void cancelGravity()
+    {
+        rigidbody.gravityScale = 0;
+        rigidbody.velocity = Vector3.zero;
+    }
+
 }
