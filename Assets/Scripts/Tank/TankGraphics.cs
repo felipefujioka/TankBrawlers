@@ -9,6 +9,11 @@ public class TankGraphics : MonoBehaviour
     //public TankSlotGraphics tankSlotPrefab;
     public TankController tankController;
     public Team color;
+    private bool canShoot = false;
+    public Animator animator;
+    public static readonly int shoot = Animator.StringToHash("Shoot");
+    public static readonly int reset = Animator.StringToHash("Reset");
+
 
     private void Start()
     {
@@ -54,15 +59,26 @@ public class TankGraphics : MonoBehaviour
 
                     piece.colliderInProps.enabled = false;
                 }
-            }            
+            }
+
+            if(tankController.isRepaired)
+            {
+                canShoot = true;
+
+                //if futuro do input do jogador
+            }
         }
 
-        if (other.gameObject.tag == GameConstants.BULLET_TAG)
+        if (other.gameObject.tag == GameConstants.BULLET_TAG && canShoot)
         {
             var bullet = other.GetComponent<Bullet>();
             //if(Input.GetButtonDown("Grab1"))
 
             tankController.AddBullet(bullet);
+
+            animator.SetTrigger(shoot);
+
+            tankController.RemoveBullet();
 
             bullet.cancelGravity(); 
 
