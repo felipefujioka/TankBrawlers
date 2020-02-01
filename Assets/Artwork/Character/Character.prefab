@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3992082851412220218}
   m_Layer: 13
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,10 +128,8 @@ MonoBehaviour:
   minGroundNormalY: 0.2
   gravityModifier: 3
   Center: {fileID: 1385836317603200453}
-  body: {fileID: 859560449077838357}
-  collider: {fileID: 7786168821912843574}
   maxSpeed: 7
-  jumpTakeOffSpeed: 10
+  jumpTakeOffSpeed: 13
   holdingPosition: {fileID: 412151634835970055}
 --- !u!1 &5986591320720789957
 GameObject:

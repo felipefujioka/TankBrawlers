@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 public class TankPiece : IndestructibleProp
 {
-    private Team team;
+    public Team team;
     public string Id;
     
     public Team color;

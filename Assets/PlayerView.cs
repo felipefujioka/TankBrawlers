@@ -6,13 +6,13 @@ namespace DefaultNamespace
     public class PlayerView : PhysicsObject
     {
         public Transform Center;
-        public Rigidbody2D body;
-        public Collider2D collider;
         
         public float maxSpeed = 7;
         public float jumpTakeOffSpeed = 7;
 
         public Transform holdingPosition;
+        
+        public PlayerController playerController;
 
         private Vector2 move;
 

@@ -8,12 +8,15 @@ public class PlayerController
     public int ID;
 
     public PlayerView view;
+
+    public Team playerTeam;
+    
     public bool IsGrabbing { get; set; }
 
     private float horizontalMovement;
 
     private Prop holdingPropRef;
-    private Prop holdingProp
+    public Prop holdingProp
     {
         get => holdingPropRef;
         set
