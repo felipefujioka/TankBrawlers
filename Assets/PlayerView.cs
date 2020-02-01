@@ -17,6 +17,8 @@ namespace DefaultNamespace
         private Vector2 move;
 
         private float direction;
+
+        private Prop highlightedProp;
         
         private RaycastHit2D[] grabHitBuffer = new RaycastHit2D[16];
 
@@ -55,14 +57,52 @@ namespace DefaultNamespace
                 {
                     continue;
                 }
-                var destructible = hit.collider.GetComponent<Prop>();
-                if (destructible != null)
+                var prop = hit.collider.GetComponent<Prop>();
+                if (prop != null)
                 {
-                    return destructible;
+                    return prop;
                 }
             }
 
             return null;
+        }
+        
+        public void TryHighlight(Vector2 direction)
+        {
+            var count = Physics2D.RaycastNonAlloc(Center.transform.position, direction, grabHitBuffer,
+                1f);
+            
+            Debug.DrawRay(Center.transform.position, direction, Color.red);
+
+            for (int i = 0; i < count; i++)
+            {
+                var hit = grabHitBuffer[i];
+                if (hit.collider == null)
+                {
+                    continue;
+                }
+                var prop = hit.collider.GetComponent<Prop>();
+                if (prop != null)
+                {
+                    if (highlightedProp == null || (highlightedProp != null && prop != highlightedProp))
+                    {
+                        if(highlightedProp != null)
+                            highlightedProp.DisableHighlight();
+                        
+                        highlightedProp = prop;
+                        highlightedProp.HighlightProp();
+                    }
+                }
+            }
+        }
+
+        public void DisableHighlight()
+        {
+            if (highlightedProp != null)
+            {
+                highlightedProp.DisableHighlight();
+                highlightedProp = null;
+            }
         }
     }
 }

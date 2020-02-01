@@ -20,7 +20,7 @@ public class TankGraphics : MonoBehaviour
     public static readonly int reset = Animator.StringToHash("Reset");
 
 
-    private void Start()
+    private void Awake()
     {
         tankController = new TankController(this, team);
         
