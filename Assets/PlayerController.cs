@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public bool IsGrabbing { get; set; }
 
     private float horizontalMovement;
+
+    private DestructiveProp holdingProp;
     
     public void ApplyHorizontalMovement(float horizontal)
     {
@@ -24,7 +26,19 @@ public class PlayerController : MonoBehaviour
 
     public void Grab()
     {
-        throw new System.NotImplementedException();
+        if (holdingProp != null)
+        {
+            //DROP
+            holdingProp.DropProp();
+            holdingProp = null;
+        }
+        
+        holdingProp = view.TryGrab();
+
+        if (holdingProp != null)
+        {
+            holdingProp.GrabProp(view);
+        }
     }
 
     public void Throw(Vector2 direction)
