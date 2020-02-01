@@ -1,17 +1,5 @@
 ﻿using UnityEngine;
 
-public  enum PlayerState
-{
-    Idle,
-    Jumping,
-    Walking,
-    Grabbing,
-    Throwing,
-    Repairing,
-    Shooting,
-    Stunned
-}
-
 public enum Team
 {
     Red,

@@ -10,8 +10,6 @@ public static class GameConstants
 
     public static int TANK_SLOTS = 4;
     
-    public static float TIME_TO_END_STUN = 2F;
-
     public static IEnumerator WaitForTime(float time, Action callback)
     {
         yield return new WaitForSeconds(time);
