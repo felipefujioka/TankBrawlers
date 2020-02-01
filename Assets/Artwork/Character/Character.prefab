@@ -131,7 +131,7 @@ MonoBehaviour:
   body: {fileID: 859560449077838357}
   collider: {fileID: 7786168821912843574}
   maxSpeed: 7
-  jumpTakeOffSpeed: 10
+  jumpTakeOffSpeed: 13
   holdingPosition: {fileID: 412151634835970055}
 --- !u!1 &5986591320720789957
 GameObject:
