@@ -8,6 +8,8 @@ public static class GameConstants
     public static string PROP_TAG = "Prop";
     public static string TANK_PIECE_TAG = "TankPiece";
 
+    public static int TANK_SLOTS = 4;
+    
     public static float TIME_TO_END_STUN = 2F;
 
     public static IEnumerator WaitForTime(float time, Action callback)

@@ -1,17 +1,30 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TankGraphics : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<GameObject> TankSlotsGraphics;
+    public TankSlotGraphics tankSlotPrefab;
+    private TankController tankController;
+
+    private void Start()
     {
-        
+        tankController = new TankController(this);
+        LoadTankSlots();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LoadTankSlots()
+    {
+        for (int i = 0; i < tankController.TankSlots.Count; i++)
+        {
+            TankSlotGraphics slot = Instantiate(tankSlotPrefab);
+            slot.SetupTankSlot(tankController.TankSlots[i]);
+        }
+    }
+
+    public void UpdateTankSlots()
     {
         
     }
