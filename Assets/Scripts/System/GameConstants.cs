@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class GameConstants
 {
+    public static int PROPS_LAYER = 19;
+    public static int TANK_LAYER = 20;
     public static string BULLET_TAG = "Bullet";
     public static string PROP_TAG = "Prop";
     public static string TANK_PIECE_TAG = "TankPiece";
