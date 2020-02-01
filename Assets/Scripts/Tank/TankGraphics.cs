@@ -12,7 +12,8 @@ public class TankGraphics : MonoBehaviour
     public Team team;
     private bool canShoot, isHolding;
     public Animator animator;
-    public Slider holdSlide;
+    public Slider tankSlider;
+    private Coroutine sliderRoutine;
     public GameObject repairIcon, shotIcon;
     public static readonly int shoot = Animator.StringToHash("Shoot");
     public static readonly int reset = Animator.StringToHash("Reset");
@@ -40,40 +41,38 @@ public class TankGraphics : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == GameConstants.PLAYER_TAG)
+        if (other.gameObject.tag == GameConstants.PLAYER_TAG && sliderRoutine == null)
         {
             var playerController = other.GetComponent<PlayerController>();
             if (playerController.playerTeam == team && playerController.holdingProp is TankPiece &&
                 (playerController.holdingProp as TankPiece).team == team)
             {
-                TankPiece piece = playerController.holdingProp as TankPiece;
-                
-                for (int i = 0; i < tankController.TankSlots.Count; i++)
+                sliderRoutine = StartCoroutine(SliderRoutine(() =>
                 {
-                    var slot = tankController.TankSlots[i];
-                    if(slot.Id == piece.Id && team == piece.color)
+                    TankPiece piece = playerController.holdingProp as TankPiece;
+                    for (int i = 0; i < tankController.TankSlots.Count; i++)
                     {
-                        TankSlotsGraphics[i].AddSlotPiece(piece);
+                        var slot = tankController.TankSlots[i];
+                        if(slot.Id == piece.Id && team == piece.color)
+                        {
+                            TankSlotsGraphics[i].AddSlotPiece(piece);
 
-                        piece.cancelGravity();
+                            piece.cancelGravity();
 
-                        piece.colliderInProps.enabled = false;
+                            piece.colliderInProps.enabled = false;
+                        }
                     }
-                }
-
-                if(tankController.isRepaired)
-                {
-                    canShoot = true;
-
-                    //if futuro do input do jogador
-                }
+                    if(tankController.isRepaired)
+                    {
+                        canShoot = true;
+                    }
+                }));
             }
         }
 
         if (other.gameObject.tag == GameConstants.BULLET_TAG && canShoot)
         {
             var bullet = other.GetComponent<Bullet>();
-            //if(Input.GetButtonDown("Grab1"))
 
             tankController.AddBullet(bullet);
 
@@ -87,18 +86,25 @@ public class TankGraphics : MonoBehaviour
         }
     }
 
-    IEnumerator RepairRoutine()
+    IEnumerator SliderRoutine(Action callback)
     {
         float count = 0;
-        holdSlide.value = 0;
+        tankSlider.value = 0;
+        isHolding = true;
         while (count < GameConstants.TIME_TO_REPAIR)
         {
-            holdSlide.value = Mathf.Lerp(0f, 1f, count / GameConstants.TIME_TO_REPAIR);
+            tankSlider.value = Mathf.Lerp(0f, 1f, count / GameConstants.TIME_TO_REPAIR);
             count += Time.deltaTime;
+
+            if (!isHolding)
+            {
+                StopCoroutine(sliderRoutine);
+            }
 
             yield return null;
         }
-        
+
+        callback();
     }
 
     private void OnTriggerExit2D(Collider2D collider)
@@ -106,6 +112,18 @@ public class TankGraphics : MonoBehaviour
         if(collider.gameObject.layer == GameConstants.PROPS_LAYER)
         {
             collider.enabled = true;
+        }
+    }
+    
+    private void OnTriggerStay2D(Collider2D collider)
+    {
+        if (collider.tag == GameConstants.PLAYER_TAG && isHolding)
+        {
+            if (collider.GetComponent<PlayerController>().holdingProp == null ||
+                !(collider.GetComponent<PlayerController>().holdingProp is TankPiece))
+            {
+                isHolding = false;
+            }
         }
     }
 }
