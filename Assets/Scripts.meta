@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Character.prefab.meta
+guid: 64b8419d4d68d4a718993a69681d4abb
+PrefabImporter:
+=======
 guid: 3a25ef03f426fd243b90c5192cb93205
 folderAsset: yes
 DefaultImporter:
+>>>>>>> 58b233646926ad111a3aecbd40ede39e1ca8a4b5:Assets/Scripts.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
