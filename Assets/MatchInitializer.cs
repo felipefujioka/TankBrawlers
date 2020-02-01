@@ -33,6 +33,7 @@ namespace DefaultNamespace
                 var spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Count)];
                 view.transform.position = spawnPoint.position;
                 player.view = view;
+                view.playerController = player;
                 player.ID = i + 1;
                 
                 PlayerControllers.Add(player);

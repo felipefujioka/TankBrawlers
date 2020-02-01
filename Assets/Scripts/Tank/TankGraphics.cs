@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class TankGraphics : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class TankGraphics : MonoBehaviour
     {
         if (other.gameObject.tag == GameConstants.PLAYER_TAG && sliderRoutine == null)
         {
-            var playerController = other.GetComponent<PlayerController>();
+            var playerController = other.GetComponent<PlayerView>().playerController;
             if (playerController.playerTeam == team && playerController.holdingProp is TankPiece &&
                 (playerController.holdingProp as TankPiece).team == team)
             {
@@ -90,6 +91,7 @@ public class TankGraphics : MonoBehaviour
     {
         float count = 0;
         tankSlider.value = 0;
+        tankSlider.gameObject.SetActive(true);
         isHolding = true;
         while (count < GameConstants.TIME_TO_REPAIR)
         {
@@ -98,13 +100,17 @@ public class TankGraphics : MonoBehaviour
 
             if (!isHolding)
             {
+                tankSlider.gameObject.SetActive(false);
                 StopCoroutine(sliderRoutine);
+                sliderRoutine = null;
             }
 
             yield return null;
         }
 
         callback();
+        
+        tankSlider.gameObject.SetActive(false);
     }
 
     private void OnTriggerExit2D(Collider2D collider)
@@ -119,8 +125,8 @@ public class TankGraphics : MonoBehaviour
     {
         if (collider.tag == GameConstants.PLAYER_TAG && isHolding)
         {
-            if (collider.GetComponent<PlayerController>().holdingProp == null ||
-                !(collider.GetComponent<PlayerController>().holdingProp is TankPiece))
+            PlayerController playerController = collider.GetComponent<PlayerView>().playerController;
+            if (playerController.holdingProp == null || !(playerController.holdingProp is TankPiece))
             {
                 isHolding = false;
             }

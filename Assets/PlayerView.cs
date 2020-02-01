@@ -5,13 +5,14 @@ namespace DefaultNamespace
 {
     public class PlayerView : PhysicsObject
     {
-        public Rigidbody2D body;
-        public Collider2D collider;
+        public Transform Center;
         
         public float maxSpeed = 7;
         public float jumpTakeOffSpeed = 7;
 
         public Transform holdingPosition;
+        
+        public PlayerController playerController;
 
         private Vector2 move;
 
@@ -40,13 +41,12 @@ namespace DefaultNamespace
         }
 
 
-        public DestructiveProp TryGrab(Vector2 direction)
+        public Prop TryGrab(Vector2 direction)
         {
-            Debug.Log(transform.position);
-            var count = Physics2D.RaycastNonAlloc(transform.position, direction, grabHitBuffer,
+            var count = Physics2D.RaycastNonAlloc(Center.transform.position, direction, grabHitBuffer,
                 0.5f);
             
-            Debug.DrawRay(transform.position, direction, Color.red);
+            Debug.DrawRay(Center.transform.position, direction, Color.red);
 
             for (int i = 0; i < count; i++)
             {
@@ -55,7 +55,7 @@ namespace DefaultNamespace
                 {
                     continue;
                 }
-                var destructible = hit.collider.GetComponent<DestructiveProp>();
+                var destructible = hit.collider.GetComponent<Prop>();
                 if (destructible != null)
                 {
                     return destructible;

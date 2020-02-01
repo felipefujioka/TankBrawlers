@@ -21,6 +21,7 @@ public class ShotBullet : MonoBehaviour
         {
             tankAnimator.SetTrigger(TankGraphics.reset);
             print("BOOM... e feijoada");
+            col.gameObject.GetComponent<TankGraphics>().tankController.TakeDamage();
         }
     }
 }
