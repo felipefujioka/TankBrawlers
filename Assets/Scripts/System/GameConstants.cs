@@ -11,6 +11,9 @@ public static class GameConstants
     public static string TANK_PIECE_TAG = "TankPiece";
     public static string PLAYER_TAG = "Player";
     public static string OUTLINE_BRIGHTNESS_TAG = "_Brightness";
+    public static string OUTLINE_WIDTH = "_Width";
+    public static string OUTLINE_COLOR = "_OutlineColor";
+    public static string OUTLINE_FILL_COLOR = "_Color";
 
     public static int TANK_SLOTS = 4;
 

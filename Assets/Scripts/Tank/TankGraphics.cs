@@ -23,7 +23,7 @@ public class TankGraphics : MonoBehaviour
     private void Awake()
     {
         tankController = new TankController(this, team);
-        
+
         if(team == Team.Blue)
             gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
         else
@@ -114,7 +114,7 @@ public class TankGraphics : MonoBehaviour
         }
 
         callback();
-        
+
         tankSlider.gameObject.SetActive(false);
     }
 
@@ -125,7 +125,7 @@ public class TankGraphics : MonoBehaviour
             collider.enabled = true;
         }
     }
-    
+
     private void OnTriggerStay2D(Collider2D collider)
     {
         if (collider.tag == GameConstants.PLAYER_TAG && isHolding)

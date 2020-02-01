@@ -17,8 +17,8 @@ public abstract class Prop: MonoBehaviour
     {
         propSprite.material = new Material(material);
         propSprite.material.SetFloat(GameConstants.OUTLINE_BRIGHTNESS_TAG, 0f);
-        propSprite.material.SetFloat("_Width", 0.05f);
-        propSprite.material.SetColor("_OutlineColor", Color.red);
+        propSprite.material.SetColor(GameConstants.OUTLINE_COLOR, Color.yellow);
+        propSprite.material.SetFloat(GameConstants.OUTLINE_WIDTH, 0.01F);
     }
 
     public void GrabProp(PlayerView playerView)

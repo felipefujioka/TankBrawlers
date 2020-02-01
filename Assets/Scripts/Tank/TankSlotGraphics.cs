@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TankSlotGraphics : MonoBehaviour
 {
@@ -17,6 +14,7 @@ public class TankSlotGraphics : MonoBehaviour
         tankSlot.Piece = piece;
         piece.transform.SetParent(transform);
         piece.transform.localPosition = Vector3.zero;
+        piece.transform.localRotation = Quaternion.identity;
         tankSlot.IsFilled = true;
     }
 }
