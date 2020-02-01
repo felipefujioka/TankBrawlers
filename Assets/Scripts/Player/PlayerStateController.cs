@@ -2,6 +2,7 @@
 {
     public PlayerState CurrentState;
     private PlayerGraphic playerGraphic;
+    private Prop holdingProp;
 
     public PlayerStateController(PlayerGraphic graphic)
     {
@@ -32,11 +33,12 @@
         }
     }
     
-    private void TryToGrab()
+    private void TryToGrab(Prop prop)
     {
         if (SetPlayerState(PlayerState.Grabbing))
         {
             playerGraphic.Grab();
+            holdingProp = prop;
         }
     }
     
@@ -45,6 +47,7 @@
         if (SetPlayerState(PlayerState.Throwing))
         {
             playerGraphic.Throw();
+            holdingProp = null;
         }
     }
 
