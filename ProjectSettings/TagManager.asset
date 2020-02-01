@@ -28,7 +28,7 @@ TagManager:
   - Destructable
   - EnemyWeapon
   - BossWeakPoint
-  - Bullet
+  - Props
   - Tank
   - 
   - 

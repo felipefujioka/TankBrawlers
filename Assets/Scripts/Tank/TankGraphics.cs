@@ -51,6 +51,8 @@ public class TankGraphics : MonoBehaviour
                     TankSlotsGraphics[i].AddSlotPiece(piece);
 
                     piece.cancelGravity();
+
+                    piece.colliderInProps.enabled = false;
                 }
             }            
         }
@@ -62,7 +64,17 @@ public class TankGraphics : MonoBehaviour
 
             tankController.AddBullet(bullet);
 
-            bullet.cancelGravity();     
+            bullet.cancelGravity(); 
+
+            bullet.colliderInProps.enabled = false; 
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if(collider.gameObject.layer == GameConstants.PROPS_LAYER)
+        {
+            collider.enabled = true;
         }
     }
 }

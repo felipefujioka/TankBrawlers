@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
-public class TankPiece : Prop
+public class TankPiece : IndestructibleProp
 {
     private Team team;
     public string Id;
     
-   
-
     public Team color;
 
     private void Start()
@@ -15,11 +13,4 @@ public class TankPiece : Prop
         else
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
     }
-
-    protected override void onCollide(Prop p)
-    {
-        throw new System.NotImplementedException();
-    }
-
-   
 }

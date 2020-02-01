@@ -1,12 +1,7 @@
-﻿public class Bullet : Prop
+﻿public class Bullet : IndestructibleProp
 {
     private void Shoot()
     {
         
-    }
-    
-    protected override void onCollide(Prop p)
-    {
-        throw new System.NotImplementedException();
     }
 }

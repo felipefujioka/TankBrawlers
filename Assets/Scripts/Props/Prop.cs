@@ -7,14 +7,14 @@ public abstract class Prop: MonoBehaviour
     public float ThrowBoost = 5f;
     public bool CanStun;
     protected abstract void onCollide(Prop collidedProp);
-    private Rigidbody2D rigidbody;
+    public Rigidbody2D rigidbody;
     private Collider2D collider;
 
     void Start()
     {
         collider = GetComponent<Collider2D>();
-        rigidbody = GetComponent<Rigidbody2D>();
     }
+
     public void GrabProp(PlayerView playerView)
     {
         transform.SetParent(playerView.holdingPosition);
@@ -47,5 +47,4 @@ public abstract class Prop: MonoBehaviour
         rigidbody.gravityScale = 0;
         rigidbody.velocity = Vector3.zero;
     }
-
 }
