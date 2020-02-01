@@ -1,5 +1,7 @@
 ﻿public class DestructiveProp : Prop
 {
+    
+    
     private void Destroy()
     {
         
