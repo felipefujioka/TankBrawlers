@@ -22,4 +22,11 @@ public abstract class Prop: MonoBehaviour
         transform.SetParent(null);
         rigidbody.AddForce(Vector3.up * 10);
     }
+
+    public void ThrowDrop(Vector3 direction)
+    {
+        CanStun = true;
+        transform.SetParent(null);
+        rigidbody.AddForce(direction * 10);
+    }
 }

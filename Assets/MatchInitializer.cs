@@ -25,15 +25,12 @@ namespace DefaultNamespace
                 view.transform.position = spawnPoint.position;
                 player.view = view;
                 player.ID = i + 1;
-
-                player.axisOffsetX = Input.GetAxis(GameInput.GetInput(player.ID, "Horizontal"));
-
-
+                
                 PlayerControllers.Add(player);
             }
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             foreach (var playerController in PlayerControllers)
             {
@@ -43,11 +40,10 @@ namespace DefaultNamespace
 
         private void GetAndApplyInput(PlayerController playerController)
         {
-            var horizontal = Input.GetAxis(GameInput.GetInput(playerController.ID, "Horizontal")) -
-                             playerController.axisOffsetX;
+            var horizontal = Input.GetAxis(GameInput.GetInput(playerController.ID, "Horizontal")); 
             var vertical = Input.GetAxis(GameInput.GetInput(playerController.ID, "Vertical"));
 
-            playerController.ApplyHorizontalMovement(Mathf.Abs(horizontal) > 0.2f ? Mathf.Sign(horizontal) : 0);
+            playerController.ApplyHorizontalMovement(horizontal);
 
             if (Input.GetButtonDown(GameInput.GetInput(playerController.ID, "Jump")))
             {

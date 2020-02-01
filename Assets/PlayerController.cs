@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerController
 {
-    public float axisOffsetX;
     public int ID;
 
     public PlayerView view;
