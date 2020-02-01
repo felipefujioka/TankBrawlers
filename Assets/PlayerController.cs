@@ -34,7 +34,7 @@ public class PlayerController
         view.SetVerticalMovement(view.jumpTakeOffSpeed);
     }
 
-    public void Grab()
+    public void Grab(Vector2 direction)
     {
         if (holdingProp != null)
         {
@@ -43,7 +43,7 @@ public class PlayerController
             holdingProp = null;
         }
         
-        holdingProp = view.TryGrab();
+        holdingProp = view.TryGrab(direction);
 
         if (holdingProp != null)
         {

@@ -58,7 +58,7 @@ namespace DefaultNamespace
                 }
                 else
                 {
-                    playerController.Grab();
+                    playerController.Grab(new Vector2(horizontal, -vertical));
                 }
             }
         }
