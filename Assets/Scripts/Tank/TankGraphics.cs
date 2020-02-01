@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class TankGraphics : MonoBehaviour
@@ -15,7 +13,7 @@ public class TankGraphics : MonoBehaviour
     public static readonly int reset = Animator.StringToHash("Reset");
 
 
-    private void Start()
+    private void Awake()
     {
         tankController = new TankController(this, color);
         

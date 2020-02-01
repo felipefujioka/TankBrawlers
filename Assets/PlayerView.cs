@@ -44,7 +44,7 @@ namespace DefaultNamespace
         public Prop TryGrab(Vector2 direction)
         {
             var count = Physics2D.RaycastNonAlloc(Center.transform.position, direction, grabHitBuffer,
-                0.5f);
+                1f);
             
             Debug.DrawRay(Center.transform.position, direction, Color.red);
 
