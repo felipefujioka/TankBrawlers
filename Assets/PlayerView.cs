@@ -11,18 +11,9 @@ namespace DefaultNamespace
         public float maxSpeed = 7;
         public float jumpTakeOffSpeed = 7;
 
-        private SpriteRenderer spriteRenderer;
-        private Animator animator;
+        public Transform holdingPosition;
 
         private Vector2 move;
-        
-
-        // Use this for initialization
-        void Awake () 
-        {
-            spriteRenderer = GetComponent<SpriteRenderer> ();    
-            animator = GetComponent<Animator> ();
-        }
 
         public void SetHorizontalMovement(float xMovement)
         {
@@ -41,6 +32,7 @@ namespace DefaultNamespace
         {
             targetVelocity = move * maxSpeed;
         }
+        
         
     }
 }
