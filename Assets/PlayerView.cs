@@ -40,16 +40,17 @@ namespace DefaultNamespace
         }
 
 
-        public DestructiveProp TryGrab()
+        public DestructiveProp TryGrab(Vector2 direction)
         {
-            var count = Physics2D.RaycastNonAlloc(transform.position, direction > 0 ? Vector2.right : Vector2.left, grabHitBuffer,
+            Debug.Log(transform.position);
+            var count = Physics2D.RaycastNonAlloc(transform.position, direction, grabHitBuffer,
                 0.5f);
             
-            Debug.DrawRay(transform.position, direction > 0 ? Vector2.right : Vector2.left, Color.red);
+            Debug.DrawRay(transform.position, direction, Color.red);
 
             for (int i = 0; i < count; i++)
             {
-                var hit = hitBuffer[i];
+                var hit = grabHitBuffer[i];
                 if (hit.collider == null)
                 {
                     continue;

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Timers;
+using DG.Tweening;
 using UnityEngine;
 public class TankController
 {
@@ -9,6 +11,16 @@ public class TankController
     public bool isRepaired => TankSlots.Count == filledSlots;
     private TankGraphics tankGraphics;
     public Bullet bullet;
+
+    //TODO remove
+    private float timer = 0; 
+    public bool IsAlive()
+    {
+        timer += Time.deltaTime;
+
+        return timer < 5f;
+    }
+    
     public TankController(TankGraphics graphics, Team tankTeam)
     {
         TankSlots = new List<TankSlot>();
