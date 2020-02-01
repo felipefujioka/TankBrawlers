@@ -22,13 +22,14 @@ namespace DefaultNamespace
         public void SetHorizontalMovement(float xMovement)
         {
             move.x = xMovement;
-            direction = xMovement;
+            direction = Mathf.Abs(xMovement) > 0.2f ? xMovement : direction;
         }
 
         public void SetVerticalMovement(float yMovement)
         {
             if (grounded)
             {
+                Debug.Log("Was grounded!");
                 velocity.y = yMovement;   
             }
         }
@@ -41,12 +42,23 @@ namespace DefaultNamespace
 
         public DestructiveProp TryGrab()
         {
-            var count = body.Cast(direction > 0 ? Vector2.right : Vector2.left, contactFilter, grabHitBuffer);
+            var count = Physics2D.RaycastNonAlloc(transform.position, direction > 0 ? Vector2.right : Vector2.left, grabHitBuffer,
+                0.5f);
+            
+            Debug.DrawRay(transform.position, direction > 0 ? Vector2.right : Vector2.left, Color.red);
 
-            if (count > 0)
+            for (int i = 0; i < count; i++)
             {
-                var hit = hitBuffer[0];
-                return hit.collider.GetComponent<DestructiveProp>();
+                var hit = hitBuffer[i];
+                if (hit.collider == null)
+                {
+                    continue;
+                }
+                var destructible = hit.collider.GetComponent<DestructiveProp>();
+                if (destructible != null)
+                {
+                    return destructible;
+                }
             }
 
             return null;

@@ -1,8 +1,10 @@
 ﻿using DefaultNamespace;
+using DG.Tweening;
 using UnityEngine;
 
 public abstract class Prop: MonoBehaviour
 {
+    public float ThrowBoost = 5f;
     public bool CanStun;
     protected abstract void onCollide(Prop collidedProp);
     private Rigidbody2D rigidbody;
@@ -16,7 +18,7 @@ public abstract class Prop: MonoBehaviour
     public void GrabProp(PlayerView playerView)
     {
         transform.SetParent(playerView.holdingPosition);
-        transform.localPosition = Vector3.zero;
+        transform.DOLocalMove(Vector3.zero, 0.1f).Play();
         rigidbody.gravityScale = 0;
         rigidbody.bodyType = RigidbodyType2D.Kinematic;
         collider.enabled = false;
@@ -35,7 +37,8 @@ public abstract class Prop: MonoBehaviour
     {
         CanStun = true;
         transform.SetParent(null);
-        rigidbody.AddForce(direction * 10);
+        rigidbody.velocity = direction * ThrowBoost;
+        rigidbody.gravityScale = 1f;
         rigidbody.bodyType = RigidbodyType2D.Dynamic;
         collider.enabled = true;
     }
