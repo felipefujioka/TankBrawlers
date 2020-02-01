@@ -2,24 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TankGraphics : MonoBehaviour
 {
     public List<TankSlotGraphics> TankSlotsGraphics;
     //public TankSlotGraphics tankSlotPrefab;
     public TankController tankController;
-    public Team color;
-    private bool canShoot = false;
+    public Team team;
+    private bool canShoot, isHolding;
     public Animator animator;
+    public Slider holdSlide;
+    public GameObject repairIcon, shotIcon;
     public static readonly int shoot = Animator.StringToHash("Shoot");
     public static readonly int reset = Animator.StringToHash("Reset");
 
 
     private void Start()
     {
-        tankController = new TankController(this, color);
+        tankController = new TankController(this, team);
         
-        if(color == Team.Blue)
+        if(team == Team.Blue)
             gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
         else
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
@@ -35,37 +38,35 @@ public class TankGraphics : MonoBehaviour
         }
     }
 
-    public void UpdateTankSlots()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == GameConstants.TANK_PIECE_TAG)
+        if (other.gameObject.tag == GameConstants.PLAYER_TAG)
         {
-            var piece = other.GetComponent<TankPiece>();
-            //if(Input.GetButtonDown("Grab1"))
-      
-            
-            for (int i = 0; i < tankController.TankSlots.Count; i++)
+            var playerController = other.GetComponent<PlayerController>();
+            if (playerController.playerTeam == team && playerController.holdingProp is TankPiece &&
+                (playerController.holdingProp as TankPiece).team == team)
             {
-                var slot = tankController.TankSlots[i];
-                if(slot.Id == piece.Id && color == piece.color)
+                TankPiece piece = playerController.holdingProp as TankPiece;
+                
+                for (int i = 0; i < tankController.TankSlots.Count; i++)
                 {
-                    TankSlotsGraphics[i].AddSlotPiece(piece);
+                    var slot = tankController.TankSlots[i];
+                    if(slot.Id == piece.Id && team == piece.color)
+                    {
+                        TankSlotsGraphics[i].AddSlotPiece(piece);
 
-                    piece.cancelGravity();
+                        piece.cancelGravity();
 
-                    piece.colliderInProps.enabled = false;
+                        piece.colliderInProps.enabled = false;
+                    }
                 }
-            }
 
-            if(tankController.isRepaired)
-            {
-                canShoot = true;
+                if(tankController.isRepaired)
+                {
+                    canShoot = true;
 
-                //if futuro do input do jogador
+                    //if futuro do input do jogador
+                }
             }
         }
 
@@ -84,6 +85,20 @@ public class TankGraphics : MonoBehaviour
 
             bullet.colliderInProps.enabled = false; 
         }
+    }
+
+    IEnumerator RepairRoutine()
+    {
+        float count = 0;
+        holdSlide.value = 0;
+        while (count < GameConstants.TIME_TO_REPAIR)
+        {
+            holdSlide.value = Mathf.Lerp(0f, 1f, count / GameConstants.TIME_TO_REPAIR);
+            count += Time.deltaTime;
+
+            yield return null;
+        }
+        
     }
 
     private void OnTriggerExit2D(Collider2D collider)
