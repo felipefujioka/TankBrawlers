@@ -212,6 +212,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8046067350052844714, guid: 61bd700277e646b4cac0271b873130d9,
+        type: 3}
+      propertyPath: EnemyTank
+      value: 
+      objectReference: {fileID: 1863209433}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61bd700277e646b4cac0271b873130d9, type: 3}
 --- !u!1001 &474383496
@@ -726,6 +731,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2920003857014866887, guid: 669f6d4f9972841468f527176ef2d1dc,
+        type: 3}
+      propertyPath: EnemyTank
+      value: 
+      objectReference: {fileID: 1751827873}
     - target: {fileID: 6270758727223135766, guid: 669f6d4f9972841468f527176ef2d1dc,
         type: 3}
       propertyPath: m_Name
@@ -2520,6 +2530,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1751827873 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 162484214058993811, guid: 61bd700277e646b4cac0271b873130d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 332368424}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1775499830 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8535453541552951035, guid: 81a7f4a04e3284d20a331ff5f731cf3b,
@@ -2706,6 +2722,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bcf43ac8817ff1478f1171b231b05e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1863209433 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5002915475701153790, guid: 669f6d4f9972841468f527176ef2d1dc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1017587406}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &757656988213567961
 PrefabInstance:
   m_ObjectHideFlags: 0

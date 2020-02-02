@@ -2,12 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TankGraphics : MonoBehaviour
 {
     public List<TankSlotGraphics> TankSlotsGraphics;
+
+    public GameObject BulletPrefab;
+    public Transform EnemyTank;
+    public Transform ShootStartingPoint;
+    public AnimationCurve ShootAnimationCurve;
+    public float ShootHeight;
+    public float ProjectileTravelTime = 5f;
+
     //public TankSlotGraphics tankSlotPrefab;
     public TankController tankController;
     private bool canShoot, isHolding;
@@ -49,7 +58,7 @@ public class TankGraphics : MonoBehaviour
     {
         tankController = new TankController(this, team);
 
-        if(team == Team.Blue)
+        if (team == Team.Blue)
             gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
         else
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
@@ -168,7 +177,8 @@ public class TankGraphics : MonoBehaviour
         if (collider.tag == GameConstants.PLAYER_TAG && isHolding)
         {
             PlayerController playerController = collider.GetComponent<PlayerView>().playerController;
-            if (playerController.playerTeam == team && (playerController.holdingProp == null || playerController.holdingProp is DestructiveProp))
+            if (playerController.playerTeam == team &&
+                (playerController.holdingProp == null || playerController.holdingProp is DestructiveProp))
             {
                 isHolding = false;
             }
@@ -200,8 +210,26 @@ public class TankGraphics : MonoBehaviour
 
     public void TankShoot()
     {
+        var bullet = Instantiate(BulletPrefab);
+        var shotBullet = bullet.AddComponent<ShotBullet>();
+        shotBullet.tank = gameObject;
+        shotBullet.tankAnimator = animator;
+        bullet.transform.position = ShootStartingPoint.position;
+
+        var horizontalTween = bullet.transform.DOMoveX(EnemyTank.transform.position.x, ProjectileTravelTime)
+            .SetEase(ShootAnimationCurve);
+        var verticalTweenUp = bullet.transform.DOMoveY(EnemyTank.transform.position.y + ShootHeight,
+            ProjectileTravelTime / 2f);
+        var verticalTweenDown = bullet.transform.DOMoveY(EnemyTank.transform.position.y,
+            ProjectileTravelTime / 2f);
+
+        var verticalSequence = DOTween.Sequence();
+        verticalSequence.Append(verticalTweenUp).Append(verticalTweenDown).SetEase(ShootAnimationCurve);
+
+        var sequence = DOTween.Sequence().Insert(0f, horizontalTween).Insert(0f, verticalSequence);
+
+        sequence.Play();
         SoundManager.Instance.PlaySFX("sfx_tank_shoot", false);
-        animator.SetTrigger(shoot);
     }
 
     public void TankIntro()
