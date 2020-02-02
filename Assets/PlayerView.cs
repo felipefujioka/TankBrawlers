@@ -131,7 +131,7 @@ namespace DefaultNamespace
 
         private bool CanControl()
         {
-            return !isStuned || GameInfo.Instance.IsRunning;
+            return !isStuned && GameInfo.Instance.IsRunning;
         }
 
         public void DisableHighlight()
