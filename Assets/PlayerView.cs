@@ -1,10 +1,12 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
     public class PlayerView : PhysicsObject
     {
+        public Animator Animator;
         public Transform Center;
         
         public float maxSpeed = 7;
@@ -23,14 +25,20 @@ namespace DefaultNamespace
         private bool isStuned;
         
         private RaycastHit2D[] grabHitBuffer = new RaycastHit2D[16];
+        private static readonly int RunSpeed = Animator.StringToHash("RunSpeed");
+        private static readonly int Grounded = Animator.StringToHash("Grounded");
 
         public void SetHorizontalMovement(float xMovement)
         {
             if (isStuned)
                 return;
             
+            var absSpeed = Mathf.Abs(xMovement);
+            
             move.x = xMovement;
-            direction = Mathf.Abs(xMovement) > 0.2f ? xMovement : direction;
+            direction = absSpeed > 0.2f ? xMovement : direction;
+            Animator.transform.localScale = new Vector3(Mathf.Sign(direction), Animator.transform.localScale.y);
+            Animator.SetFloat(RunSpeed, absSpeed);
         }
 
         public void SetVerticalMovement(float yMovement)
@@ -38,7 +46,7 @@ namespace DefaultNamespace
             if (grounded)
             {
                 Debug.Log("Was grounded!");
-                velocity.y = yMovement;   
+                velocity.y = yMovement;
             }
         }
 
@@ -48,6 +56,8 @@ namespace DefaultNamespace
                 return;
             
             targetVelocity = move * maxSpeed;
+            
+            Animator.SetBool(Grounded, grounded);
         }
 
         public void TryStun()
