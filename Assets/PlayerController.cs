@@ -50,6 +50,11 @@ public class PlayerController
         view.DisableHighlight();
     }
 
+    public void SetLookingDirection(Vector2 direction)
+    {
+        view.SetLookingDirection(direction);
+    }
+    
     public void Grab(Vector2 direction)
     {
         if (holdingProp != null)

@@ -127,13 +127,14 @@ namespace DefaultNamespace
             
             var horizontal = Input.GetAxis(GameInput.GetInput(playerController.ID, "Horizontal")); 
             var vertical = Input.GetAxis(GameInput.GetInput(playerController.ID, "Vertical"));
+            var lookingDirection = new Vector2(horizontal, -vertical);
 
             playerController.ApplyHorizontalMovement(horizontal);
             
             if(horizontal== 0 && vertical == 0)
                 playerController.DisableTarget();
             else
-                playerController.TargetProp(new Vector2(horizontal, -vertical));
+                playerController.TargetProp(lookingDirection);
 
             if (Input.GetButtonDown(GameInput.GetInput(playerController.ID, "Jump")))
             {
@@ -144,13 +145,15 @@ namespace DefaultNamespace
             {
                 if (playerController.IsGrabbing)
                 {
-                    playerController.Throw(new Vector2(horizontal, -vertical));
+                    playerController.Throw(lookingDirection);
                 }
                 else
                 {
-                    playerController.Grab(new Vector2(horizontal, -vertical));
+                    playerController.Grab(lookingDirection);
                 }
             }
+
+            playerController.SetLookingDirection(lookingDirection);
         }
     }
 }

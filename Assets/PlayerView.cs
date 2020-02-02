@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using Unity.Mathematics;
+using System.Xml.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,6 +6,8 @@ namespace DefaultNamespace
 {
     public class PlayerView : PhysicsObject
     {
+        public Transform arrow;
+        
         public Animator Animator;
         public Transform Center;
         
@@ -37,6 +37,7 @@ namespace DefaultNamespace
             var absSpeed = Mathf.Abs(xMovement);
             move.x = xMovement;
             direction = absSpeed > 0.2f ? xMovement : direction;
+            
             var newScale = direction > 0 ? 0.25f : -0.25f;
             this.transform.localScale = new Vector3(newScale , this.transform.localScale.y);
             Animator.SetFloat(RunSpeed, absSpeed);
@@ -79,6 +80,16 @@ namespace DefaultNamespace
             }));
         }
 
+        public void SetLookingDirection(Vector2 direction)
+        {
+            arrow.gameObject.SetActive(direction != Vector2.zero);
+            
+            var xDirection = direction.x;
+            var yDirection = xDirection > 0 ? direction.y : -direction.y;
+            float zRotation = Mathf.Atan2(yDirection, Mathf.Abs(direction.x));
+            arrow.eulerAngles = new Vector3(0, 0, zRotation * 180 / Mathf.PI);
+        }
+        
         public Prop TryGrab(Vector2 direction)
         {
             if (!CanControl())
@@ -99,22 +110,13 @@ namespace DefaultNamespace
                 var prop = hit.collider.GetComponent<Prop>();
                 if (prop != null)
                 {
-                    StartCoroutine(BlinkPlayer());
                     return prop;
                 }
             }
 
             return null;
         }
-
-        public IEnumerator BlinkPlayer()
-        {
-            var col = GetComponent<Collider2D>();
-            col.enabled = false;
-            yield return new WaitForEndOfFrame();
-            col.enabled = true;
-        }
-
+        
         public void TryHighlight(Vector2 direction)
         {
             if (!CanControl())
