@@ -1,14 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using DefaultNamespace;
 using DG.Tweening;
 using UnityEngine;
 
 public abstract class Prop: MonoBehaviour
 {
-    public float ThrowBoost = 5f;
+    private float ThrowBoost = 5f;
     public bool CanStun;
     public PlayerView throwingPlayer;
-    protected abstract void onCollide(Prop collidedProp);
     public Rigidbody2D rigidbody;
     public Collider2D collider;
     public SpriteRenderer propSprite;
@@ -20,6 +20,23 @@ public abstract class Prop: MonoBehaviour
         propSprite.material.SetFloat(GameConstants.OUTLINE_BRIGHTNESS_TAG, 0f);
         propSprite.material.SetColor(GameConstants.OUTLINE_COLOR, Color.yellow);
         propSprite.material.SetFloat(GameConstants.OUTLINE_WIDTH, 0.01f);
+
+        if (this is Bullet)
+            ThrowBoost = GameConstants.THROW_FORCE_BULLET;
+        if (this is TankPiece)
+            ThrowBoost = GameConstants.THROW_FORCE_PIECE;
+        if (this is DestructiveProp)
+            ThrowBoost = GameConstants.THROW_FORCE_DESTRUCTIBLE;
+
+        StartCoroutine(DisableParachute());
+    }
+
+    IEnumerator DisableParachute()
+    {
+        yield return new WaitForSeconds(1.2f);
+        Transform parachute = transform.Find("Parachute");
+        if(parachute != null)
+            Destroy(parachute.gameObject);
     }
 
     public void GrabProp(PlayerView playerView)
@@ -40,9 +57,9 @@ public abstract class Prop: MonoBehaviour
         collider.enabled = true;
     }
 
-    public void ThrowDrop(Vector3 direction, PlayerView playerView)
+    public void ThrowProp(Vector3 direction, PlayerView playerView)
     {
-        CanStun = true;
+        CanStun = playerView != null;
         throwingPlayer = playerView;
         transform.SetParent(null);
         rigidbody.velocity = direction * ThrowBoost;
@@ -50,10 +67,15 @@ public abstract class Prop: MonoBehaviour
         rigidbody.bodyType = RigidbodyType2D.Dynamic;
         collider.enabled = true;
     }
-    public void cancelGravity()
+    public void CancelGravity()
     {
         rigidbody.gravityScale = 0;
         rigidbody.velocity = Vector3.zero;
+    }
+    
+    public void EnableGravity()
+    {
+        rigidbody.gravityScale = 1;
     }
 
     public void HighlightProp()
@@ -66,4 +88,8 @@ public abstract class Prop: MonoBehaviour
         propSprite.material.SetFloat(GameConstants.OUTLINE_BRIGHTNESS_TAG, 0f);
     }
 
+    private void OnDestroy()
+    {
+        PropSpawnerManager.Instance.RemoveProp(this);
+    }
 }

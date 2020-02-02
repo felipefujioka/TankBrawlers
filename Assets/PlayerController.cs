@@ -73,7 +73,7 @@ public class PlayerController
         SoundManager.Instance.PlaySFX("sfx_char_throw_object", false);
         if (holdingProp != null)
         {
-            holdingProp.ThrowDrop(direction, view);
+            holdingProp.ThrowProp(direction, view);
             holdingProp = null;
             view.Animator.SetTrigger(Throw1);
         }

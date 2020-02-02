@@ -12,34 +12,57 @@ namespace DefaultNamespace
     {
         public List<TankGraphics> Tanks;
         
-        public List<Transform> SpawnPoints;
+        public Transform RedSpawn, BlueSpawn;
 
         public List<PlayerController> PlayerControllers;
 
-        [FormerlySerializedAs("playerPrefab")] public PlayerView PlayerPrefab;
+        [FormerlySerializedAs("playerPrefab")] public PlayerView BlueCharacterPrefab;
+        [FormerlySerializedAs("playerPrefab")] public PlayerView RedCharacterPrefab;
 
         public GameObject InitScreen;
         public EndScreen EndScreen;
 
         private void Start()
         {
-            InitScreen.SetActive(true);
+            //InitScreen.SetActive(true);
             
             PlayerControllers = new List<PlayerController>();
             for (int i = 0; i < 2; i++)
             {
                 var player = new PlayerController();
-                var view = Instantiate(PlayerPrefab, transform.parent);
-                var spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Count)];
+                
+                player.playerTeam = i == 0 ? Team.Blue : Team.Red;
+
+                var characterPrefab = player.playerTeam == Team.Blue ? BlueCharacterPrefab : RedCharacterPrefab;
+                
+                var view = Instantiate(characterPrefab, transform.parent);
+                var spawnPoint = i == 0 ? BlueSpawn : RedSpawn;
                 view.transform.position = spawnPoint.position;
                 player.view = view;
                 view.playerController = player;
                 player.ID = i + 1;
-                
                 PlayerControllers.Add(player);
             }
 
+            StartCoroutine(IntroRoutine());
             StartCoroutine(MatchRoutine());
+        }
+
+        IEnumerator IntroRoutine()
+        {
+            yield return new WaitForSeconds(GameConstants.BEGIN_INTRO_DELAY);
+
+            GameInfo.Instance.IsRunning = false;
+            var tank1 = Tanks[0];
+            var tank2 = Tanks[1];
+            tank1.ExecuteShot();
+            tank2.ExecuteShot();
+            
+            //Destroy tanks
+            
+            yield return new WaitForSeconds(GameConstants.INTRO_LENGTH);
+            
+            GameInfo.Instance.IsRunning = true;
         }
 
         private IEnumerator MatchRoutine()
@@ -67,6 +90,9 @@ namespace DefaultNamespace
 
         private void GetAndApplyInput(PlayerController playerController)
         {
+            if (!GameInfo.Instance.IsRunning)
+                return;
+            
             var horizontal = Input.GetAxis(GameInput.GetInput(playerController.ID, "Horizontal")); 
             var vertical = Input.GetAxis(GameInput.GetInput(playerController.ID, "Vertical"));
 
