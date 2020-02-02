@@ -34,6 +34,7 @@ namespace DefaultNamespace
         {
             if (!CanControl())
                 return;
+
             var absSpeed = Mathf.Abs(xMovement);
             move.x = xMovement;
             direction = absSpeed > 0.2f ? xMovement : direction;
@@ -77,6 +78,8 @@ namespace DefaultNamespace
                 isStuned = false;
                 Animator.SetTrigger("Restore");
             }));
+
+            ParticleManager.Instance.InstantiateParticle("FX_Stun", holdingPosition.transform, true);
         }
 
         public Prop TryGrab(Vector2 direction)
@@ -114,7 +117,7 @@ namespace DefaultNamespace
             yield return new WaitForEndOfFrame();
             col.enabled = true;
         }
-        
+
         public void TryHighlight(Vector2 direction)
         {
             if (!CanControl())
