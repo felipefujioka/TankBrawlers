@@ -16,7 +16,8 @@ namespace DefaultNamespace
 
         public List<PlayerController> PlayerControllers;
 
-        [FormerlySerializedAs("playerPrefab")] public PlayerView PlayerPrefab;
+        [FormerlySerializedAs("playerPrefab")] public PlayerView BlueCharacterPrefab;
+        [FormerlySerializedAs("playerPrefab")] public PlayerView RedCharacterPrefab;
 
         public GameObject InitScreen;
         public EndScreen EndScreen;
@@ -29,13 +30,17 @@ namespace DefaultNamespace
             for (int i = 0; i < 2; i++)
             {
                 var player = new PlayerController();
-                var view = Instantiate(PlayerPrefab, transform.parent);
+                
+                player.playerTeam = i == 0 ? Team.Blue : Team.Red;
+
+                var characterPrefab = player.playerTeam == Team.Blue ? BlueCharacterPrefab : RedCharacterPrefab;
+                
+                var view = Instantiate(characterPrefab, transform.parent);
                 var spawnPoint = i == 0 ? BlueSpawn : RedSpawn;
                 view.transform.position = spawnPoint.position;
                 player.view = view;
                 view.playerController = player;
                 player.ID = i + 1;
-                player.playerTeam = i == 0 ? Team.Blue : Team.Red;
                 PlayerControllers.Add(player);
             }
 
