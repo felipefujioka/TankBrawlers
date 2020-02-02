@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ShotBullet : MonoBehaviour
@@ -6,6 +7,11 @@ public class ShotBullet : MonoBehaviour
     public Animator tankAnimator;
 
     private Vector3 lastPosition;
+
+    private void Start()
+    {
+        GetComponentInChildren<TrailRenderer>().enabled = true;
+    }
 
     public void OnCollisionEnter2D(Collision2D col)
     {
