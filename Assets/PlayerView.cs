@@ -9,12 +9,12 @@ namespace DefaultNamespace
     {
         public Animator Animator;
         public Transform Center;
-        
+
         public float maxSpeed = 7;
         public float jumpTakeOffSpeed = 7;
 
         public Transform holdingPosition;
-        
+
         public PlayerController playerController;
 
         private Vector2 move;
@@ -24,7 +24,7 @@ namespace DefaultNamespace
         private Prop highlightedProp;
 
         private bool isStuned;
-        
+
         private RaycastHit2D[] grabHitBuffer = new RaycastHit2D[16];
         private static readonly int RunSpeed = Animator.StringToHash("RunSpeed");
         private static readonly int Grounded = Animator.StringToHash("Grounded");
@@ -33,9 +33,9 @@ namespace DefaultNamespace
         {
             if (!CanControl())
                 return;
-            
+
             var absSpeed = Mathf.Abs(xMovement);
-            
+
             move.x = xMovement;
             direction = absSpeed > 0.2f ? xMovement : direction;
             Animator.transform.localScale = new Vector3(Mathf.Sign(direction), Animator.transform.localScale.y);
@@ -55,9 +55,9 @@ namespace DefaultNamespace
         {
             if (!CanControl())
                 return;
-            
+
             targetVelocity = move * maxSpeed;
-            
+
             Animator.SetBool(Grounded, grounded);
         }
 
@@ -70,16 +70,18 @@ namespace DefaultNamespace
             Vector3 variatingDirection = new Vector3( rndX, rndY);
             playerController.Throw(variatingDirection);
             StartCoroutine(GameConstants.WaitForTime(GameConstants.STUNNED_TIME, () => { isStuned = false; }));
+
+            ParticleManager.Instance.InstantiateParticle("FX_Stun", holdingPosition.transform, true);
         }
 
         public Prop TryGrab(Vector2 direction)
         {
             if (!CanControl())
                 return null;
-            
+
             var count = Physics2D.RaycastNonAlloc(Center.transform.position, direction, grabHitBuffer,
                 1f);
-            
+
             Debug.DrawRay(Center.transform.position, direction, Color.red);
 
             for (int i = 0; i < count; i++)
@@ -98,15 +100,15 @@ namespace DefaultNamespace
 
             return null;
         }
-        
+
         public void TryHighlight(Vector2 direction)
         {
             if (!CanControl())
                 return;
-            
+
             var count = Physics2D.RaycastNonAlloc(Center.transform.position, direction, grabHitBuffer,
                 1f);
-            
+
             Debug.DrawRay(Center.transform.position, direction, Color.red);
 
             for (int i = 0; i < count; i++)
@@ -123,7 +125,7 @@ namespace DefaultNamespace
                     {
                         if(highlightedProp != null)
                             highlightedProp.DisableHighlight();
-                        
+
                         highlightedProp = prop;
                         highlightedProp.HighlightProp();
                     }

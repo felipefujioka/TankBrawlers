@@ -11,18 +11,20 @@ public class TankGraphics : MonoBehaviour
     //public TankSlotGraphics tankSlotPrefab;
     public TankController tankController;
     private bool canShoot, isHolding;
-    
+
     public Team team;
     public TankGraphics enemyTank;
-    
+
     private Prop holdingProp;
-    
+
     public Animator animator;
     public GameObject repairIcon, shotIcon;
     private Coroutine sliderRoutine;
     public Slider tankSlider;
     public Image lifeFill;
-    
+
+    public ParticleSystem particleSystem;
+
     public static readonly int shoot = Animator.StringToHash("Shoot");
     public static readonly int reset = Animator.StringToHash("Reset");
     public static readonly int intro = Animator.StringToHash("Intro");
@@ -34,7 +36,7 @@ public class TankGraphics : MonoBehaviour
             switch (tankController.CurrentLife)
             {
                 case 3:
-                    return "bgm_plantao_globo"; 
+                    return "bgm_plantao_globo";
                 case 2:
                     return "bgm_ameno";
                 case 1:
@@ -75,6 +77,8 @@ public class TankGraphics : MonoBehaviour
                 holdingProp = playerController.holdingProp;
                 repairIcon.SetActive(true);
                 SoundManager.Instance.PlaySFX("sfx_tank_repair", true);
+                particleSystem = ParticleManager.Instance.InstantiateParticle("FX_Repair", this.transform).GetComponent<ParticleSystem>();
+
                 sliderRoutine = StartCoroutine(SliderRoutine(() => { ExecuteAddPiece(playerController); }));
             }
 
@@ -111,8 +115,11 @@ public class TankGraphics : MonoBehaviour
         {
             canShoot = true;
         }
-        
+
         SoundManager.Instance.StopSFX("sfx_tank_repair");
+        particleSystem.Stop();
+        Destroy(particleSystem.gameObject);
+        particleSystem = null;
     }
 
     IEnumerator SliderRoutine(Action callback)
