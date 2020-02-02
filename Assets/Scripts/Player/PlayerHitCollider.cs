@@ -17,7 +17,7 @@ public class PlayerHitCollider : MonoBehaviour
             other.gameObject.tag == GameConstants.TANK_PIECE_TAG)
         {
             Prop collidedProp = other.gameObject.GetComponent<Prop>();
-            if (collidedProp.CanStun && collidedProp.throwingPlayer != playerView)
+            if (collidedProp != null && collidedProp.CanStun && collidedProp.throwingPlayer != playerView)
             {
                 if (other.gameObject.tag == GameConstants.PROP_TAG)
                 {

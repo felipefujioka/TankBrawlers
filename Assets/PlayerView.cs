@@ -1,6 +1,7 @@
 using System;
 using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
@@ -30,7 +31,7 @@ namespace DefaultNamespace
 
         public void SetHorizontalMovement(float xMovement)
         {
-            if (isStuned)
+            if (!CanControl())
                 return;
             var absSpeed = Mathf.Abs(xMovement);
             move.x = xMovement;
@@ -42,7 +43,7 @@ namespace DefaultNamespace
 
         public void SetVerticalMovement(float yMovement)
         {
-            if (grounded)
+            if (grounded && CanControl())
             {
                 Debug.Log("Was grounded!");
                 velocity.y = yMovement;
@@ -51,7 +52,7 @@ namespace DefaultNamespace
 
         protected override void ComputeVelocity()
         {
-            if (isStuned)
+            if (!CanControl())
                 return;
 
             targetVelocity = move * maxSpeed;
@@ -61,13 +62,18 @@ namespace DefaultNamespace
 
         public void TryStun()
         {
+            SoundManager.Instance.PlaySFX("sfx_char_stun", false);
             isStuned = true;
+            var rndX = Random.Range(0.2f, 0.5f);
+            var rndY = Random.Range(0.2f, 0.5f);
+            Vector3 variatingDirection = new Vector3( rndX, rndY);
+            playerController.Throw(variatingDirection);
             StartCoroutine(GameConstants.WaitForTime(GameConstants.STUNNED_TIME, () => { isStuned = false; }));
         }
 
         public Prop TryGrab(Vector2 direction)
         {
-            if (isStuned)
+            if (!CanControl())
                 return null;
 
             var count = Physics2D.RaycastNonAlloc(Center.transform.position, direction, grabHitBuffer,
@@ -94,7 +100,7 @@ namespace DefaultNamespace
 
         public void TryHighlight(Vector2 direction)
         {
-            if (isStuned)
+            if (!CanControl())
                 return;
 
             var count = Physics2D.RaycastNonAlloc(Center.transform.position, direction, grabHitBuffer,
@@ -121,7 +127,16 @@ namespace DefaultNamespace
                         highlightedProp.HighlightProp();
                     }
                 }
+                else
+                {
+                    DisableHighlight();
+                }
             }
+        }
+
+        private bool CanControl()
+        {
+            return !isStuned && GameInfo.Instance.IsRunning;
         }
 
         public void DisableHighlight()

@@ -8,6 +8,7 @@ public class MainMenuScreen : MonoBehaviour
 {
     public void LoadJunScene()
     {
+        SoundManager.Instance.PlaySFX("sfx_button_press", false);
         SceneManager.LoadScene(1);
     }
 }

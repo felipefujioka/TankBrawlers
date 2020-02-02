@@ -12,9 +12,4 @@ public class IndestructibleProp : Prop
             CanStun = false;
         }
     }
-    
-    protected override void onCollide(Prop p)
-    {
-        throw new System.NotImplementedException();
-    }
 }

@@ -1,14 +1,23 @@
-﻿public class DestructiveProp : Prop
+﻿using UnityEngine;
+
+public class DestructiveProp : Prop
 {
-    
-    
-    public void Destroy()
+    void OnCollisionEnter2D(Collision2D other)
     {
-        
+        if (CanStun && other.gameObject.layer == GameConstants.PROPS_LAYER)
+        {
+            SoundManager.Instance.PlaySFX("sfx_props_collide", false);
+            
+            if(other.gameObject.tag == GameConstants.PROP_TAG)
+                other.gameObject.GetComponent<DestructiveProp>().Destroy();
+            
+            Destroy();
+        }
     }
 
-    protected override void onCollide(Prop p)
+    public void Destroy()
     {
-        throw new System.NotImplementedException();
+        //vfx
+        Destroy(gameObject);
     }
 }

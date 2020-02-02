@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Timers;
 using DG.Tweening;
 using UnityEngine;
@@ -11,11 +12,11 @@ public class TankController
     public bool isRepaired => TankSlots.Count == filledSlots;
     private TankGraphics tankGraphics;
     public Bullet bullet;
-
+    private bool canTakeDamage = true;
     private int life = GameConstants.TANK_MAX_LIFE;
 
     //TODO remove
-    private float timer = 0; 
+    private float timer = 0;
     public bool IsAlive()
     {
         return life > 0;
@@ -23,34 +24,31 @@ public class TankController
 
     public void TakeDamage()
     {
-        life--;
+        if (canTakeDamage)
+        {
+            canTakeDamage = false;
+            SoundManager.Instance.PlaySFX("sfx_tank_damage", false);
+            tankGraphics.StartCoroutine(ShotReset());
+        }
     }
-    
+
+    IEnumerator ShotReset()
+    {
+        yield return null;
+        canTakeDamage = true;
+        life--;
+        if (life <= 0)
+        {
+            SoundManager.Instance.PlaySFX("sfx_tank_explode", false);
+        }
+        tankGraphics.lifeFill.fillAmount = (float)life / GameConstants.TANK_MAX_LIFE;
+    }
+
     public TankController(TankGraphics graphics, Team tankTeam)
     {
         TankSlots = new List<TankSlot>();
         TankTeam = tankTeam;
 
-        for (int i = 0; i < GameConstants.TANK_SLOTS; i++)
-        {
-            TankSlot slot = new TankSlot {Id = "slot" + i};
-            TankSlots.Add(slot);
-        }
-
         tankGraphics = graphics;
-    }
-
-    public void AddBullet(Bullet bulletInside)
-    {
-        bullet = bulletInside;
-
-        bullet.transform.SetParent(tankGraphics.transform);
-        bullet.gameObject.SetActive(false);
-    }
-
-    public void RemoveBullet()
-    {
-        MonoBehaviour.Destroy(bullet.gameObject);
-        bullet = null;
     }
 }
