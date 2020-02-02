@@ -37,6 +37,7 @@ public class PropSpawnerManager : MonoBehaviour
             var rndProp = Random.Range(0f, 1f);
             if (rndProp > 0.8f)
             {
+                yield return new WaitForSecondsRealtime(4f);
                 inStageBullets.Add(SpawnProp(bulletPrefab) as Bullet);
             }
             else
@@ -48,6 +49,7 @@ public class PropSpawnerManager : MonoBehaviour
         }else if (inStageProps.Count >= GameConstants.MAX_PROP_SPAWNS &&
                   inStageBullets.Count < GameConstants.MAX_BULLET_SPAWNS)
         {
+            yield return new WaitForSecondsRealtime(4f);
             inStageBullets.Add(SpawnProp(bulletPrefab) as Bullet);
         }
         else if(inStageProps.Count < GameConstants.MAX_PROP_SPAWNS &&
