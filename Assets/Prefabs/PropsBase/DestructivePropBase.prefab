@@ -99,8 +99,8 @@ MonoBehaviour:
   ThrowBoost: 30
   CanStun: 0
   IsHighlighted: 0
-  rigidbody: {fileID: 0}
-  collider: {fileID: 0}
+  rigidbody: {fileID: 3246252304790951725}
+  collider: {fileID: 625994791076707286}
   propSprite: {fileID: 1678797917379385640}
   material: {fileID: 2100000, guid: db12b25bef8c0e643b9ea2383e0b445d, type: 2}
 --- !u!61 &625994791076707286
