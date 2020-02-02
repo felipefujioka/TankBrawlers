@@ -13,6 +13,9 @@ public class PlayerController
     private float horizontalMovement;
 
     private Prop holdingPropRef;
+    private static readonly int Grab1 = Animator.StringToHash("Grab");
+    private static readonly int Throw1 = Animator.StringToHash("Throw");
+
     private Prop holdingProp
     {
         get => holdingPropRef;
@@ -48,6 +51,7 @@ public class PlayerController
         if (holdingProp != null)
         {
             holdingProp.GrabProp(view);
+            view.Animator.SetTrigger(Grab1);
         }
     }
 
@@ -57,6 +61,7 @@ public class PlayerController
         {
             holdingProp.ThrowDrop(direction);
             holdingProp = null;
+            view.Animator.SetTrigger(Throw1);
         }
     }
 }

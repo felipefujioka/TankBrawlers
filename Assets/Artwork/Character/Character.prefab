@@ -127,6 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGroundNormalY: 0.2
   gravityModifier: 3
+  Animator: {fileID: 8551762744244253182}
   Center: {fileID: 1385836317603200453}
   body: {fileID: 859560449077838357}
   collider: {fileID: 7786168821912843574}
@@ -363,6 +364,12 @@ PrefabInstance:
 --- !u!4 &6589377919040173235 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3305601058340397487, guid: 26b460be0848f46ec8b38b2897638730,
+    type: 3}
+  m_PrefabInstance: {fileID: 8551762744690988316}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8551762744244253182 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 648078562, guid: 26b460be0848f46ec8b38b2897638730,
     type: 3}
   m_PrefabInstance: {fileID: 8551762744690988316}
   m_PrefabAsset: {fileID: 0}
