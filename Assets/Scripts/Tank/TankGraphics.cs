@@ -85,7 +85,6 @@ public class TankGraphics : MonoBehaviour
             {
                 holdingProp = playerController.holdingProp;
                 repairIcon.SetActive(true);
-                SoundManager.Instance.PlaySFX("sfx_tank_repair", true);
 
                 if(particleSystem == null)
                     particleSystem = ParticleManager.Instance.InstantiateParticle("FX_Repair", this.transform).GetComponent<ParticleSystem>();
@@ -174,15 +173,19 @@ public class TankGraphics : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.CompareTag(GameConstants.PLAYER_TAG) && isHolding)
+        if (collider.CompareTag(GameConstants.PLAYER_TAG))
         {
-            SoundManager.Instance.StopSFX("sfx_tank_repair");
-            SoundManager.Instance.StopSFX("sfx_tank_reload");
-            PlayerController playerController = collider.GetComponent<PlayerView>().playerController;
-            if (playerController.holdingProp != null || holdingProp == playerController.holdingProp)
+            if (isHolding)
             {
-                isHolding = false;
+                SoundManager.Instance.StopSFX("sfx_tank_repair");
+                SoundManager.Instance.StopSFX("sfx_tank_reload");
+                PlayerController playerController = collider.GetComponent<PlayerView>().playerController;
+                if (playerController.holdingProp != null || holdingProp == playerController.holdingProp)
+                {
+                    isHolding = false;
+                }    
             }
+            
 
             if (particleSystem.gameObject != null)
             {
@@ -262,5 +265,10 @@ public class TankGraphics : MonoBehaviour
     public void TankIntro()
     {
         animator.SetTrigger(intro);
+    }
+
+    public void PlayRepairSound()
+    {
+        SoundManager.Instance.PlaySFX("sfx_tank_repair");
     }
 }
