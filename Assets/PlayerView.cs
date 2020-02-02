@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -101,11 +102,20 @@ namespace DefaultNamespace
                 var prop = hit.collider.GetComponent<Prop>();
                 if (prop != null)
                 {
+                    StartCoroutine(BlinkPlayer());
                     return prop;
                 }
             }
 
             return null;
+        }
+
+        public IEnumerator BlinkPlayer()
+        {
+            var col = GetComponent<Collider2D>();
+            col.enabled = false;
+            yield return new WaitForEndOfFrame();
+            col.enabled = true;
         }
 
         public void TryHighlight(Vector2 direction)
