@@ -9,7 +9,6 @@ public abstract class Prop: MonoBehaviour
     public float ThrowBoost = 5f;
     public bool CanStun;
     public PlayerView throwingPlayer;
-    protected abstract void onCollide(Prop collidedProp);
     public Rigidbody2D rigidbody;
     public Collider2D collider;
     public SpriteRenderer propSprite;

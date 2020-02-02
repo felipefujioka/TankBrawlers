@@ -68,18 +68,11 @@ MonoBehaviour:
   - {fileID: 3321721355139801921, guid: e3abfdf961b464b469e7c5540d65bba1, type: 3}
   - {fileID: 3321721355139801921, guid: c6027b7a93528ce4cb462f3d2eda8545, type: 3}
   - {fileID: 3321721355139801921, guid: 7192f90c0c953674fa9f509191fd6707, type: 3}
-  inStageProps:
+  inStageBullets:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  inStageProps: []
   parachutePrefab: {fileID: 7993227457910467887, guid: b92b6ae6cdc698c4b9a03d217a27b7c8,
     type: 3}
 --- !u!1 &2830691238491054572

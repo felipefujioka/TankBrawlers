@@ -10,7 +10,8 @@ public static class GameConstants
     public static int TANK_SLOTS = 4;
     public static float STUNNED_TIME = 2F;
     public static float PROP_SPAWN_DELAY = 2f;
-    public static float MAX_PROP_SPAWNS = 20;
+    public static float MAX_PROP_SPAWNS = 8;
+    public static float MAX_BULLET_SPAWNS = 4;
     public static float TIME_TO_REPAIR = 2f;
     public static string BULLET_TAG = "Bullet";
     public static string PROP_TAG = "Prop";
