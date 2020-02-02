@@ -52,6 +52,7 @@ public class TankGraphics : MonoBehaviour
             {
                 holdingProp = playerController.holdingProp;
                 repairIcon.SetActive(true);
+                SoundManager.Instance.PlaySFX("sfx_tank_repair", true);
                 sliderRoutine = StartCoroutine(SliderRoutine(() => { ExecuteAddPiece(playerController); }));
             }
 
@@ -61,6 +62,7 @@ public class TankGraphics : MonoBehaviour
 
                 shotIcon.SetActive(true);
 
+                SoundManager.Instance.PlaySFX("sfx_tank_reload", true);
                 sliderRoutine = StartCoroutine(SliderRoutine(() =>
                 {
                     playerController.holdingProp = null;
@@ -87,6 +89,8 @@ public class TankGraphics : MonoBehaviour
         {
             canShoot = true;
         }
+        
+        SoundManager.Instance.StopSFX("sfx_tank_repair");
     }
 
     IEnumerator SliderRoutine(Action callback)
@@ -151,6 +155,8 @@ public class TankGraphics : MonoBehaviour
 
     public void ExecuteShot()
     {
+        SoundManager.Instance.StopSFX("sfx_tank_reload");
+        
         TankShoot();
         TankDestruction();
         Destroy(holdingProp?.gameObject);
@@ -167,6 +173,7 @@ public class TankGraphics : MonoBehaviour
 
     public void TankShoot()
     {
+        SoundManager.Instance.PlaySFX("sfx_tank_shoot", false);
         animator.SetTrigger(shoot);
     }
 

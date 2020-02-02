@@ -27,6 +27,7 @@ public class TankController
         if (canTakeDamage)
         {
             canTakeDamage = false;
+            SoundManager.Instance.PlaySFX("sfx_tank_damage", false);
             tankGraphics.StartCoroutine(ShotReset());
         }
     }

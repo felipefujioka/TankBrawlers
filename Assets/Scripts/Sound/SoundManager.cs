@@ -7,6 +7,7 @@ using UnityEngine.Audio;
 public class SoundManager : MonoBehaviour
 {
     private static SoundManager instance;
+    
     public static SoundManager Instance
     {
         get
@@ -14,6 +15,8 @@ public class SoundManager : MonoBehaviour
             if (instance == null)
             {
                 instance = Instantiate(Resources.Load<SoundManager>("Sound/SoundManager"));
+                
+                instance.playingAudioSources = new Dictionary<string, AudioSource>();
                 
                 DontDestroyOnLoad(instance.gameObject);
             }
@@ -25,7 +28,10 @@ public class SoundManager : MonoBehaviour
     private SoundConfig soundConfig;
     private AudioMixer defaultMixer;
     private List<AudioSource> sfxAudioSources;
+
     private AudioSource bgmAudioSource;
+    private Dictionary<string, AudioSource> playingAudioSources;
+
     public bool IsBGMMuted, IsSFXMuted;
 
     private void Awake()
@@ -60,18 +66,40 @@ public class SoundManager : MonoBehaviour
             source.loop = isLoop;
             source.clip = soundClip;
             source.Play();
+
+            if (isLoop)
+            {
+                playingAudioSources[soundName] = source;
+            }
+        }
+    }
+
+    public void StopSFX(string soundName)
+    {
+        if (playingAudioSources.ContainsKey(soundName))
+        {
+            playingAudioSources[soundName].Stop();
+            playingAudioSources.Remove(soundName);
         }
     }
 
     public void PlayBGM(string soundName)
     {
         AudioClip soundClip = soundConfig.GetSoundByName(soundName);
+        
+        StopBGM();
+        
         bgmAudioSource.loop = true;
         bgmAudioSource.clip = soundClip;
         if (!IsBGMMuted)
         {
             bgmAudioSource.Play();
         }
+    }
+
+    public void StopBGM()
+    {
+        bgmAudioSource.Stop();
     }
 
     public void SetAudioSnapshot(string snapshotName, float fadeTime)

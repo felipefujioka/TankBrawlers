@@ -22,7 +22,6 @@ public class ShotBullet : MonoBehaviour
         {
             tankAnimator.SetTrigger(TankGraphics.reset);
             col.gameObject.GetComponent<TankGraphics>().tankController.TakeDamage();
-            SoundManager.Instance.PlaySFX("sfx_tank_damage", false);
         }
     }
 }

@@ -7,8 +7,6 @@ public class TankSlotGraphics : MonoBehaviour
 
     public void AddSlotPiece(TankPiece piece)
     {
-        SoundManager.Instance.PlaySFX("sfx_tank_repair", false);
-
         tankSlot.Piece = piece;
         
         piece.CancelGravity();
