@@ -68,7 +68,7 @@ public class PlayerController
     {
         if (holdingProp != null)
         {
-            holdingProp.ThrowDrop(direction);
+            holdingProp.ThrowDrop(direction, view);
             holdingProp = null;
         }
     }

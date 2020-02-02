@@ -6,7 +6,8 @@ using UnityEngine;
 public abstract class Prop: MonoBehaviour
 {
     public float ThrowBoost = 5f;
-    public bool CanStun, IsHighlighted;
+    public bool CanStun;
+    public PlayerView throwingPlayer;
     protected abstract void onCollide(Prop collidedProp);
     public Rigidbody2D rigidbody;
     public Collider2D collider;
@@ -18,7 +19,7 @@ public abstract class Prop: MonoBehaviour
         propSprite.material = new Material(material);
         propSprite.material.SetFloat(GameConstants.OUTLINE_BRIGHTNESS_TAG, 0f);
         propSprite.material.SetColor(GameConstants.OUTLINE_COLOR, Color.yellow);
-        propSprite.material.SetFloat(GameConstants.OUTLINE_WIDTH, 0.01F);
+        propSprite.material.SetFloat(GameConstants.OUTLINE_WIDTH, 0.01f);
     }
 
     public void GrabProp(PlayerView playerView)
@@ -39,9 +40,10 @@ public abstract class Prop: MonoBehaviour
         collider.enabled = true;
     }
 
-    public void ThrowDrop(Vector3 direction)
+    public void ThrowDrop(Vector3 direction, PlayerView playerView)
     {
         CanStun = true;
+        throwingPlayer = playerView;
         transform.SetParent(null);
         rigidbody.velocity = direction * ThrowBoost;
         rigidbody.gravityScale = 1f;

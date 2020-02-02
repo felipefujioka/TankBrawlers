@@ -17,6 +17,8 @@ public static class GameConstants
 
     public static int TANK_SLOTS = 4;
 
+    public static float STUNNED_TIME = 2F;
+    
     public static float PROP_SPAWN_DELAY = 2f;
 
     public static float TIME_TO_REPAIR = 2f;

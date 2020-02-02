@@ -12,6 +12,7 @@ public class TankGraphics : MonoBehaviour
     public TankController tankController;
     public Team team;
     private bool canShoot, isHolding;
+    private Prop holdingProp;
     public Animator animator;
     public Slider tankSlider;
     private Coroutine sliderRoutine;
@@ -35,7 +36,6 @@ public class TankGraphics : MonoBehaviour
     {
         for (int i = 0; i < tankController.TankSlots.Count; i++)
         {
-            //TankSlotGraphics slot = Instantiate(tankSlotPrefab);
             TankSlotsGraphics[i].SetupTankSlot(tankController.TankSlots[i]);
         }
     }
@@ -48,6 +48,7 @@ public class TankGraphics : MonoBehaviour
             if (playerController.playerTeam == team && playerController.holdingProp is TankPiece &&
                 (playerController.holdingProp as TankPiece).team == team)
             {
+                holdingProp = playerController.holdingProp;
                 sliderRoutine = StartCoroutine(SliderRoutine(() =>
                 {
                     TankPiece piece = playerController.holdingProp as TankPiece;
@@ -57,9 +58,8 @@ public class TankGraphics : MonoBehaviour
                         if(slot.Id == piece.Id && team == piece.color)
                         {
                             TankSlotsGraphics[i].AddSlotPiece(piece);
-
+                            playerController.holdingProp = null;
                             piece.cancelGravity();
-
                             piece.colliderInProps.enabled = false;
                         }
                     }
@@ -72,6 +72,8 @@ public class TankGraphics : MonoBehaviour
             
             if (playerController.holdingProp is Bullet && canShoot)
             {
+                holdingProp = playerController.holdingProp;
+                
                 sliderRoutine = StartCoroutine(SliderRoutine(() =>
                 {
                     var bullet = playerController.holdingProp as Bullet;
@@ -83,6 +85,8 @@ public class TankGraphics : MonoBehaviour
                     tankController.RemoveBullet();
 
                     bullet.cancelGravity(); 
+                    
+                    playerController.holdingProp = null;
 
                     bullet.colliderInProps.enabled = false;
                 }));
@@ -120,9 +124,13 @@ public class TankGraphics : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if(collider.gameObject.layer == GameConstants.PROPS_LAYER)
+        if (collider.tag == GameConstants.PLAYER_TAG && isHolding)
         {
-            collider.enabled = true;
+            PlayerController playerController = collider.GetComponent<PlayerView>().playerController;
+            if (playerController.holdingProp != null || holdingProp == playerController.holdingProp)
+            {
+                isHolding = false;
+            }
         }
     }
 
@@ -131,7 +139,7 @@ public class TankGraphics : MonoBehaviour
         if (collider.tag == GameConstants.PLAYER_TAG && isHolding)
         {
             PlayerController playerController = collider.GetComponent<PlayerView>().playerController;
-            if (playerController.holdingProp == null || !(playerController.holdingProp is TankPiece) && !(playerController.holdingProp is Bullet))
+            if (playerController.holdingProp == null || playerController.holdingProp is DestructiveProp)
             {
                 isHolding = false;
             }

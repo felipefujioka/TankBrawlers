@@ -2,7 +2,7 @@
 {
     
     
-    private void Destroy()
+    public void Destroy()
     {
         
     }
