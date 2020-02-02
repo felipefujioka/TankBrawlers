@@ -72,7 +72,7 @@ public class PlayerController
     {
         if (holdingProp != null)
         {
-            holdingProp.ThrowDrop(direction, view);
+            holdingProp.ThrowProp(direction, view);
             holdingProp = null;
             view.Animator.SetTrigger(Throw1);
         }

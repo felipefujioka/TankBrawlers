@@ -1,7 +1,9 @@
-﻿public class Bullet : IndestructibleProp
+﻿
+public class Bullet : IndestructibleProp
 {
-    private void Shoot()
+    public void Destroy()
     {
-        
+        //vfx
+        Destroy(gameObject);
     }
 }
