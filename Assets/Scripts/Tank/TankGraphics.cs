@@ -16,6 +16,7 @@ public class TankGraphics : MonoBehaviour
     public Animator animator;
     public Slider tankSlider;
     private Coroutine sliderRoutine;
+    public Image lifeFill;
     public GameObject repairIcon, shotIcon;
     public static readonly int shoot = Animator.StringToHash("Shoot");
     public static readonly int reset = Animator.StringToHash("Reset");
@@ -81,18 +82,12 @@ public class TankGraphics : MonoBehaviour
                 {
                     var bullet = playerController.holdingProp as Bullet;
                     
+                    Destroy(bullet);
                     animator.SetTrigger(shoot);
-                    
-                    bullet.cancelGravity(); 
-                    
                     playerController.holdingProp = null;
-
-                    bullet.colliderInProps.enabled = false;
                 }));
             }
         }
-
-        
     }
 
     IEnumerator SliderRoutine(Action callback)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Timers;
 using DG.Tweening;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class TankController
     public bool isRepaired => TankSlots.Count == filledSlots;
     private TankGraphics tankGraphics;
     public Bullet bullet;
-
+    private bool canTakeDamage = true;
     private int life = GameConstants.TANK_MAX_LIFE;
 
     //TODO remove
@@ -23,7 +24,19 @@ public class TankController
 
     public void TakeDamage()
     {
+        if (canTakeDamage)
+        {
+            canTakeDamage = false;
+            tankGraphics.StartCoroutine(ShotReset());
+        }
+    }
+    
+    IEnumerator ShotReset()
+    {
+        yield return null;
+        canTakeDamage = true;
         life--;
+        tankGraphics.lifeFill.fillAmount = (float)life / GameConstants.TANK_MAX_LIFE;
     }
     
     public TankController(TankGraphics graphics, Team tankTeam)

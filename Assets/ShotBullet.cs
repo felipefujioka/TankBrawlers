@@ -20,7 +20,6 @@ public class ShotBullet : MonoBehaviour
         if (col.gameObject.layer == GameConstants.TANK_LAYER && col.gameObject != tank)
         {
             tankAnimator.SetTrigger(TankGraphics.reset);
-            print("BOOM... e feijoada");
             col.gameObject.GetComponent<TankGraphics>().tankController.TakeDamage();
         }
     }
