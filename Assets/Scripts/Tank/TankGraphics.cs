@@ -164,6 +164,8 @@ public class TankGraphics : MonoBehaviour
     {
         if (collider.tag == GameConstants.PLAYER_TAG && isHolding)
         {
+            SoundManager.Instance.StopSFX("sfx_tank_repair");
+            SoundManager.Instance.StopSFX("sfx_tank_reload");
             PlayerController playerController = collider.GetComponent<PlayerView>().playerController;
             if (playerController.holdingProp != null || holdingProp == playerController.holdingProp)
             {
