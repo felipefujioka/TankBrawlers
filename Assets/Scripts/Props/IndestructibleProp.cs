@@ -10,7 +10,11 @@ public class IndestructibleProp : Prop
             var direction = collision.contacts[0].normal;
             rigidbody.velocity = new Vector2(direction.x * 5, 5);
         }
-        
-        CanStun = false;
+
+        if (collision.gameObject.layer == GameConstants.PROPS_LAYER ||
+            collision.gameObject.layer == GameConstants.PLATFORM_LAYER)
+        {
+            CanStun = false;   
+        }
     }
 }

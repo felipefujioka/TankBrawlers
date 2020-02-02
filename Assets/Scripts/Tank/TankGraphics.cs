@@ -186,7 +186,7 @@ public class TankGraphics : MonoBehaviour
             }
             
 
-            if (particleSystem.gameObject != null)
+            if (particleSystem != null)
             {
                 Destroy(particleSystem.gameObject);
                 particleSystem = null;

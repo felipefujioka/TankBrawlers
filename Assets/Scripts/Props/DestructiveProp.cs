@@ -16,7 +16,11 @@ public class DestructiveProp : Prop
             Destroy();
         }
         
-        CanStun = false;
+        if (other.gameObject.layer == GameConstants.PROPS_LAYER ||
+            other.gameObject.layer == GameConstants.PLATFORM_LAYER)
+        {
+            CanStun = false;   
+        }
     }
 
     public void Destroy()
