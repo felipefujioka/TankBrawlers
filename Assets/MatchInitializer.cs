@@ -24,7 +24,7 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            //InitScreen.SetActive(true);
+            SoundManager.Instance.PlayBGM("bgm_gameplay");
             
             PlayerControllers = new List<PlayerController>();
             for (int i = 0; i < 2; i++)

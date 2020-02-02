@@ -10,7 +10,7 @@ public class ShotBullet : MonoBehaviour
         if (col.gameObject.tag == GameConstants.BULLET_TAG)
         {
             tankAnimator.SetTrigger(TankGraphics.reset);
-            SoundManager.Instance.StopBGM();
+            SoundManager.Instance.PlayBGM("bgm_gameplay");
             SoundManager.Instance.PlaySFX("sfx_tank_explode", false);
             //vfx
         }
@@ -20,7 +20,7 @@ public class ShotBullet : MonoBehaviour
     {
         if (col.gameObject.layer == GameConstants.TANK_LAYER && col.gameObject != tank)
         {
-            SoundManager.Instance.StopBGM();
+            SoundManager.Instance.PlayBGM("bgm_gameplay");
             tankAnimator.SetTrigger(TankGraphics.reset);
             col.gameObject.GetComponent<TankGraphics>().tankController.TakeDamage();
         }
