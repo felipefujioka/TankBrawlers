@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -64,11 +65,18 @@ namespace DefaultNamespace
         {
             SoundManager.Instance.PlaySFX("sfx_char_stun", false);
             isStuned = true;
+
+            Animator.SetTrigger("Stun");
+
             var rndX = Random.Range(0.2f, 0.5f);
             var rndY = Random.Range(0.2f, 0.5f);
             Vector3 variatingDirection = new Vector3( rndX, rndY);
             playerController.Throw(variatingDirection);
-            StartCoroutine(GameConstants.WaitForTime(GameConstants.STUNNED_TIME, () => { isStuned = false; }));
+
+            StartCoroutine(GameConstants.WaitForTime(GameConstants.STUNNED_TIME, () => {
+                isStuned = false;
+                Animator.SetTrigger("Restore");
+            }));
         }
 
         public Prop TryGrab(Vector2 direction)
@@ -91,6 +99,7 @@ namespace DefaultNamespace
                 var prop = hit.collider.GetComponent<Prop>();
                 if (prop != null)
                 {
+                    StartCoroutine(BlinkPlayer());
                     return prop;
                 }
             }
@@ -98,6 +107,14 @@ namespace DefaultNamespace
             return null;
         }
 
+        public IEnumerator BlinkPlayer()
+        {
+            var col = GetComponent<Collider2D>();
+            col.enabled = false;
+            yield return new WaitForEndOfFrame();
+            col.enabled = true;
+        }
+        
         public void TryHighlight(Vector2 direction)
         {
             if (!CanControl())

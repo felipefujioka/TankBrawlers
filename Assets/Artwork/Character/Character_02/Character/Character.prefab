@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 859560449077838357}
   - component: {fileID: 7786168821912843574}
   - component: {fileID: 3992082851412220218}
+  - component: {fileID: 42642533517764543}
   m_Layer: 13
   m_Name: Character
   m_TagString: Player
@@ -133,6 +134,18 @@ MonoBehaviour:
   maxSpeed: 7
   jumpTakeOffSpeed: 13
   holdingPosition: {fileID: 412151634835970055}
+--- !u!114 &42642533517764543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609279498127333930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5b4017a1202e045b318c65893719c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5986591320720789957
 GameObject:
   m_ObjectHideFlags: 0

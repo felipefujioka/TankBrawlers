@@ -11,10 +11,14 @@ public class TankSlotGraphics : MonoBehaviour
         
         piece.CancelGravity();
         piece.colliderInProps.enabled = false;
+        piece.rigidbody.bodyType = RigidbodyType2D.Kinematic;
         
         piece.transform.SetParent(transform);
         piece.transform.localPosition = Vector3.zero;
+        piece.transform.localScale = Vector3.one;
         piece.transform.localRotation = Quaternion.identity;
+        
+        
         tankSlot.IsFilled = true;
     }
 
@@ -25,6 +29,8 @@ public class TankSlotGraphics : MonoBehaviour
             TankPiece piece = tankSlot.Piece;
             piece.EnableGravity();
             piece.colliderInProps.enabled = true;
+            
+            piece.rigidbody.bodyType = RigidbodyType2D.Dynamic;
 
             var rndX = Random.Range(0.8f, 1f);
             var rndY = Random.Range(0.8f, 1f);
@@ -33,6 +39,7 @@ public class TankSlotGraphics : MonoBehaviour
             piece.ThrowProp(variatingDirection, null);
             
             tankSlot.Piece = null;
+            tankSlot.IsFilled = false;
         }
     }
 }

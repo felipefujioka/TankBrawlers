@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -24,7 +27,7 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            //InitScreen.SetActive(true);
+            SoundManager.Instance.PlayBGM("bgm_gameplay");
             
             PlayerControllers = new List<PlayerController>();
             for (int i = 0; i < 2; i++)
@@ -78,11 +81,35 @@ namespace DefaultNamespace
             {
                 yield return null;
             }
+
+            GameInfo.Instance.IsRunning = false;
             
             EndScreen.gameObject.SetActive(true);
             SoundManager.Instance.PlaySFX("sfx_win_congratulations", false);
             EndScreen.VictoryLabel.text =
                 $"{(tank1.tankController.IsAlive() ? "<color=blue>BLUE</color>" : "<color=red>RED</color>")} TEAM WINS!";
+
+            var team = tank1.tankController.IsAlive() ? tank1.team : tank2.team;
+            var victorious = FindObjectsOfType<PlayerView>()
+                .FirstOrDefault(player => player.playerController.playerTeam == team);
+
+            var camera = Camera.main;
+            camera.transform.DOLookAt(victorious.Center.transform.position, 1f).Play();
+            camera.DOOrthoSize(2, 1f).Play();
+
+            StartCoroutine(WaitForPlayerInput(victorious.playerController));
+        }
+
+        private IEnumerator WaitForPlayerInput(PlayerController player)
+        {
+            yield return new WaitForSecondsRealtime(2f);
+            while (!Input.GetButtonDown(GameInput.GetInput(player.ID, "Jump")) &&
+                   !Input.GetButtonDown(GameInput.GetInput(player.ID, "Grab")))
+            {
+                yield return null;
+            }
+            
+            SceneManager.LoadScene("JunScene");
         }
 
         private void Update()

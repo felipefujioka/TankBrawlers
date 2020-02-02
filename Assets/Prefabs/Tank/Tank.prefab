@@ -562,6 +562,7 @@ Transform:
   - {fileID: 9107018129402571847}
   - {fileID: 6565814543050325683}
   - {fileID: 2101178835506105999}
+  - {fileID: 882206748188086318}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -680,12 +681,43 @@ MonoBehaviour:
   - {fileID: 7598128374911044230}
   - {fileID: 5708437245363854267}
   - {fileID: 8493108452088119200}
+  BulletPrefab: {fileID: 5429152214736752846, guid: 45a4225c4249c7747a39768745b11cf5,
+    type: 3}
+  EnemyTank: {fileID: 0}
+  ShootStartingPoint: {fileID: 882206748188086318}
+  ShootAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.4874256
+      outSlope: 2.4874256
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.019852942
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ShootHeight: 4
+  ProjectileTravelTime: 5
   team: 1
+  enemyTank: {fileID: 0}
   animator: {fileID: 6107758827851490609}
-  tankSlider: {fileID: 1353347524552900622}
-  lifeFill: {fileID: 3597667049157599894}
   repairIcon: {fileID: 5810410516141541677}
   shotIcon: {fileID: 7028332179188864973}
+  tankSlider: {fileID: 1353347524552900622}
+  lifeFill: {fileID: 3597667049157599894}
 --- !u!95 &6107758827851490609
 Animator:
   serializedVersion: 3
@@ -778,6 +810,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6725156288793146772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 882206748188086318}
+  m_Layer: 20
+  m_Name: ShootStartingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &882206748188086318
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6725156288793146772}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.84, y: 1.71, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1327392870982948245}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7028332179188864973
 GameObject:
   m_ObjectHideFlags: 0
