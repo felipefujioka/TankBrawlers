@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using DefaultNamespace;
 using DG.Tweening;
 using UnityEngine;
@@ -20,6 +21,16 @@ public abstract class Prop: MonoBehaviour
         propSprite.material.SetFloat(GameConstants.OUTLINE_BRIGHTNESS_TAG, 0f);
         propSprite.material.SetColor(GameConstants.OUTLINE_COLOR, Color.yellow);
         propSprite.material.SetFloat(GameConstants.OUTLINE_WIDTH, 0.01f);
+
+        StartCoroutine(DisableParachute());
+    }
+
+    IEnumerator DisableParachute()
+    {
+        yield return new WaitForSeconds(1.2f);
+        Transform parachute = transform.Find("Parachute");
+        if(parachute != null)
+            Destroy(parachute.gameObject);
     }
 
     public void GrabProp(PlayerView playerView)
@@ -66,4 +77,8 @@ public abstract class Prop: MonoBehaviour
         propSprite.material.SetFloat(GameConstants.OUTLINE_BRIGHTNESS_TAG, 0f);
     }
 
+    private void OnDestroy()
+    {
+        PropSpawnerManager.Instance.RemoveProp(this);
+    }
 }
