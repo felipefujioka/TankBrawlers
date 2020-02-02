@@ -12,7 +12,7 @@ public class TankController
     private TankGraphics tankGraphics;
     public Bullet bullet;
 
-    private int life = 1;
+    private int life = GameConstants.TANK_MAX_LIFE;
 
     //TODO remove
     private float timer = 0; 

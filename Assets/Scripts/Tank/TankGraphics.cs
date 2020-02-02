@@ -49,6 +49,7 @@ public class TankGraphics : MonoBehaviour
                 (playerController.holdingProp as TankPiece).team == team)
             {
                 holdingProp = playerController.holdingProp;
+                repairIcon.SetActive(true);
                 sliderRoutine = StartCoroutine(SliderRoutine(() =>
                 {
                     TankPiece piece = playerController.holdingProp as TankPiece;
@@ -74,16 +75,14 @@ public class TankGraphics : MonoBehaviour
             {
                 holdingProp = playerController.holdingProp;
                 
+                shotIcon.SetActive(true);
+                
                 sliderRoutine = StartCoroutine(SliderRoutine(() =>
                 {
                     var bullet = playerController.holdingProp as Bullet;
-
-                    tankController.AddBullet(bullet);
-
+                    
                     animator.SetTrigger(shoot);
-
-                    tankController.RemoveBullet();
-
+                    
                     bullet.cancelGravity(); 
                     
                     playerController.holdingProp = null;
@@ -109,9 +108,7 @@ public class TankGraphics : MonoBehaviour
 
             if (!isHolding)
             {
-                tankSlider.gameObject.SetActive(false);
-                StopCoroutine(sliderRoutine);
-                sliderRoutine = null;
+                DisableSlider();
             }
 
             yield return null;
@@ -119,11 +116,19 @@ public class TankGraphics : MonoBehaviour
 
         callback();
         
+        DisableSlider();
+
+        tankSlider.gameObject.SetActive(false);
+    }
+
+    private void DisableSlider()
+    {
         tankSlider.gameObject.SetActive(false);
         StopCoroutine(sliderRoutine);
         sliderRoutine = null;
-
-        tankSlider.gameObject.SetActive(false);
+        
+        repairIcon.SetActive(false);
+        shotIcon.SetActive(false);
     }
 
     private void OnTriggerExit2D(Collider2D collider)

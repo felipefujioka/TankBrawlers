@@ -6,6 +6,7 @@ public static class GameConstants
 {
     public static int PROPS_LAYER = 19;
     public static int TANK_LAYER = 20;
+    public static int TANK_MAX_LIFE = 3;
     public static string BULLET_TAG = "Bullet";
     public static string PROP_TAG = "Prop";
     public static string TANK_PIECE_TAG = "TankPiece";
@@ -22,7 +23,7 @@ public static class GameConstants
     public static float PROP_SPAWN_DELAY = 2f;
 
     public static float TIME_TO_REPAIR = 2f;
-    public static float HIGHTLIGHT_DELAY = 1f;
+
     
     public static IEnumerator WaitForTime(float time, Action callback)
     {
