@@ -62,8 +62,7 @@ public class TankGraphics : MonoBehaviour
                         {
                             TankSlotsGraphics[i].AddSlotPiece(piece);
                             playerController.holdingProp = null;
-                            piece.cancelGravity();
-                            piece.colliderInProps.enabled = false;
+                            
                         }
                     }
                     if(tankController.isRepaired)
@@ -78,10 +77,11 @@ public class TankGraphics : MonoBehaviour
                 holdingProp = playerController.holdingProp;
                 
                 shotIcon.SetActive(true);
-                
+
                 sliderRoutine = StartCoroutine(SliderRoutine(() =>
                 {
                     TankShoot();
+                    TankDestruction();
                     Destroy(holdingProp.gameObject);
                     playerController.holdingProp = null;
                 }));
@@ -146,6 +146,15 @@ public class TankGraphics : MonoBehaviour
             {
                 isHolding = false;
             }
+        }
+    }
+
+    private void TankDestruction()
+    {
+        canShoot = false;
+        for (int i = 0; i < TankSlotsGraphics.Count; i++)
+        {
+            TankSlotsGraphics[i].DestroySlot();
         }
     }
 

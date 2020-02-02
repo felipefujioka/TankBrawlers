@@ -50,20 +50,25 @@ public abstract class Prop: MonoBehaviour
         collider.enabled = true;
     }
 
-    public void ThrowDrop(Vector3 direction, PlayerView playerView)
+    public void ThrowProp(Vector3 direction, PlayerView playerView, float boost = 0)
     {
         CanStun = true;
         throwingPlayer = playerView;
         transform.SetParent(null);
-        rigidbody.velocity = direction * ThrowBoost;
+        rigidbody.velocity = direction * (ThrowBoost + boost);
         rigidbody.gravityScale = 1f;
         rigidbody.bodyType = RigidbodyType2D.Dynamic;
         collider.enabled = true;
     }
-    public void cancelGravity()
+    public void CancelGravity()
     {
         rigidbody.gravityScale = 0;
         rigidbody.velocity = Vector3.zero;
+    }
+    
+    public void EnableGravity()
+    {
+        rigidbody.gravityScale = 1;
     }
 
     public void HighlightProp()
