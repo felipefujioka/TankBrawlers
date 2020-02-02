@@ -33,13 +33,8 @@ namespace DefaultNamespace
         {
             if (!CanControl())
                 return;
-<<<<<<< HEAD
 
             var absSpeed = Mathf.Abs(xMovement);
-
-=======
-            var absSpeed = Mathf.Abs(xMovement);
->>>>>>> 4f1074b30fe948b72b4100d3efa31d18d855b8c3
             move.x = xMovement;
             direction = absSpeed > 0.2f ? xMovement : direction;
             var newScale = direction > 0 ? 0.25f : -0.25f;
