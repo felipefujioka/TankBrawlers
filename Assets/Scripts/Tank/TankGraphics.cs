@@ -20,6 +20,7 @@ public class TankGraphics : MonoBehaviour
     public GameObject repairIcon, shotIcon;
     public static readonly int shoot = Animator.StringToHash("Shoot");
     public static readonly int reset = Animator.StringToHash("Reset");
+    public static readonly int intro = Animator.StringToHash("Intro");
 
 
     private void Awake()
@@ -83,7 +84,7 @@ public class TankGraphics : MonoBehaviour
                     var bullet = playerController.holdingProp as Bullet;
                     
                     Destroy(bullet);
-                    animator.SetTrigger(shoot);
+                    TankShoot();
                     playerController.holdingProp = null;
                 }));
             }
@@ -148,5 +149,15 @@ public class TankGraphics : MonoBehaviour
                 isHolding = false;
             }
         }
+    }
+
+    public void TankShoot()
+    {
+        animator.SetTrigger(shoot);
+    }
+    
+    public void TankIntro()
+    {
+        animator.SetTrigger(intro);
     }
 }

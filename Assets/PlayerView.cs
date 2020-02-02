@@ -30,7 +30,7 @@ namespace DefaultNamespace
 
         public void SetHorizontalMovement(float xMovement)
         {
-            if (isStuned)
+            if (!CanControl())
                 return;
             
             var absSpeed = Mathf.Abs(xMovement);
@@ -43,7 +43,7 @@ namespace DefaultNamespace
 
         public void SetVerticalMovement(float yMovement)
         {
-            if (grounded)
+            if (grounded && CanControl())
             {
                 Debug.Log("Was grounded!");
                 velocity.y = yMovement;
@@ -52,7 +52,7 @@ namespace DefaultNamespace
 
         protected override void ComputeVelocity()
         {
-            if (isStuned)
+            if (!CanControl())
                 return;
             
             targetVelocity = move * maxSpeed;
@@ -68,7 +68,7 @@ namespace DefaultNamespace
 
         public Prop TryGrab(Vector2 direction)
         {
-            if (isStuned)
+            if (!CanControl())
                 return null;
             
             var count = Physics2D.RaycastNonAlloc(Center.transform.position, direction, grabHitBuffer,
@@ -95,7 +95,7 @@ namespace DefaultNamespace
         
         public void TryHighlight(Vector2 direction)
         {
-            if (isStuned)
+            if (!CanControl())
                 return;
             
             var count = Physics2D.RaycastNonAlloc(Center.transform.position, direction, grabHitBuffer,
@@ -122,7 +122,16 @@ namespace DefaultNamespace
                         highlightedProp.HighlightProp();
                     }
                 }
+                else
+                {
+                    DisableHighlight();
+                }
             }
+        }
+
+        private bool CanControl()
+        {
+            return !isStuned || GameInfo.Instance.IsRunning;
         }
 
         public void DisableHighlight()

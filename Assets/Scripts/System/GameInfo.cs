@@ -9,6 +9,9 @@ public enum Team
 public class GameInfo : MonoBehaviour
 {
     private static GameInfo instance;
+
+    public bool IsRunning;
+    
     public static GameInfo Instance
     {
         get

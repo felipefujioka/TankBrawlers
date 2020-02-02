@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class GameConstants
 {
+    public static float INTRO_LENGTH = 5f;
+    
     public static int PROPS_LAYER = 19;
     public static int TANK_LAYER = 20;
     public static int TANK_MAX_LIFE = 3;

@@ -39,7 +39,23 @@ namespace DefaultNamespace
                 PlayerControllers.Add(player);
             }
 
+            StartCoroutine(IntroRoutine());
             StartCoroutine(MatchRoutine());
+        }
+
+        IEnumerator IntroRoutine()
+        {
+            GameInfo.Instance.IsRunning = false;
+            var tank1 = Tanks[0];
+            var tank2 = Tanks[1];
+            tank1.TankIntro();
+            tank2.TankIntro();
+            
+            //Destroy tanks
+            
+            yield return new WaitForSeconds(GameConstants.INTRO_LENGTH);
+            
+            GameInfo.Instance.IsRunning = true;
         }
 
         private IEnumerator MatchRoutine()
@@ -66,6 +82,9 @@ namespace DefaultNamespace
 
         private void GetAndApplyInput(PlayerController playerController)
         {
+            if (!GameInfo.Instance.IsRunning)
+                return;
+            
             var horizontal = Input.GetAxis(GameInput.GetInput(playerController.ID, "Horizontal")); 
             var vertical = Input.GetAxis(GameInput.GetInput(playerController.ID, "Vertical"));
 
