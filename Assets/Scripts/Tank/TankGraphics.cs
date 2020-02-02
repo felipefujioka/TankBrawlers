@@ -86,7 +86,9 @@ public class TankGraphics : MonoBehaviour
                 holdingProp = playerController.holdingProp;
                 repairIcon.SetActive(true);
                 SoundManager.Instance.PlaySFX("sfx_tank_repair", true);
-                particleSystem = ParticleManager.Instance.InstantiateParticle("FX_Repair", this.transform).GetComponent<ParticleSystem>();
+
+                if(particleSystem == null)
+                    particleSystem = ParticleManager.Instance.InstantiateParticle("FX_Repair", this.transform).GetComponent<ParticleSystem>();
 
                 sliderRoutine = StartCoroutine(SliderRoutine(() => { ExecuteAddPiece(playerController); }));
             }
@@ -126,9 +128,6 @@ public class TankGraphics : MonoBehaviour
         }
 
         SoundManager.Instance.StopSFX("sfx_tank_repair");
-        particleSystem.Stop();
-        Destroy(particleSystem.gameObject);
-        particleSystem = null;
     }
 
     IEnumerator SliderRoutine(Action callback)
@@ -154,6 +153,12 @@ public class TankGraphics : MonoBehaviour
 
         DisableSlider();
 
+        if (particleSystem != null)
+        {
+            Destroy(particleSystem.gameObject);
+            particleSystem = null;
+        }
+
         tankSlider.gameObject.SetActive(false);
     }
 
@@ -175,6 +180,12 @@ public class TankGraphics : MonoBehaviour
             if (playerController.holdingProp != null || holdingProp == playerController.holdingProp)
             {
                 isHolding = false;
+            }
+
+            if (particleSystem.gameObject != null)
+            {
+                Destroy(particleSystem.gameObject);
+                particleSystem = null;
             }
         }
     }
@@ -204,6 +215,12 @@ public class TankGraphics : MonoBehaviour
         TankShoot();
         TankDestruction();
         Destroy(holdingProp?.gameObject);
+
+        if (particleSystem != null)
+        {
+            Destroy(particleSystem.gameObject);
+            particleSystem = null;
+        }
     }
 
     private void TankDestruction()
