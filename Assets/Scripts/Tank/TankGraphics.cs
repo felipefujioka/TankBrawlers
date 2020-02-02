@@ -81,10 +81,8 @@ public class TankGraphics : MonoBehaviour
                 
                 sliderRoutine = StartCoroutine(SliderRoutine(() =>
                 {
-                    var bullet = playerController.holdingProp as Bullet;
-                    
-                    Destroy(bullet);
                     TankShoot();
+                    Destroy(holdingProp.gameObject);
                     playerController.holdingProp = null;
                 }));
             }
