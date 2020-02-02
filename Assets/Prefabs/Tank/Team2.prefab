@@ -717,6 +717,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 1353347524552900622, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2041301892391697868, guid: ccaa44ff218b2df46bd30c27130a0d67,
         type: 3}
       propertyPath: m_TagString
@@ -731,6 +736,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2596476957293497740, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2596476957293497740, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2703444917059820062, guid: ccaa44ff218b2df46bd30c27130a0d67,
         type: 3}
@@ -761,6 +776,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.717
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911454574671292254, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.8490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911454574671292254, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.01201493
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911454574671292254, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.01201493
       objectReference: {fileID: 0}
     - target: {fileID: 4118819449456848696, guid: ccaa44ff218b2df46bd30c27130a0d67,
         type: 3}
@@ -821,6 +851,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.419
+      objectReference: {fileID: 0}
+    - target: {fileID: 5500067027224660175, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: -0.01641475
       objectReference: {fileID: 0}
     - target: {fileID: 5708437245363854267, guid: ccaa44ff218b2df46bd30c27130a0d67,
         type: 3}
@@ -891,6 +926,11 @@ PrefabInstance:
         type: 3}
       propertyPath: tankSlot.Id
       value: slot1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970606229861758381, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8436058106730477168, guid: ccaa44ff218b2df46bd30c27130a0d67,
         type: 3}

@@ -276,10 +276,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1353347524552900622, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2041301892391697868, guid: ccaa44ff218b2df46bd30c27130a0d67,
         type: 3}
       propertyPath: m_TagString
       value: Bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 2596476957293497740, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2596476957293497740, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3563908614935260041, guid: ccaa44ff218b2df46bd30c27130a0d67,
         type: 3}
@@ -300,6 +315,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.187
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911454574671292254, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911454574671292254, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.20858902
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911454574671292254, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.8018868
       objectReference: {fileID: 0}
     - target: {fileID: 4172461303387219688, guid: ccaa44ff218b2df46bd30c27130a0d67,
         type: 3}
@@ -405,6 +435,11 @@ PrefabInstance:
         type: 3}
       propertyPath: tankSlot.Id
       value: slot1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970606229861758381, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8493108452088119200, guid: ccaa44ff218b2df46bd30c27130a0d67,
         type: 3}
