@@ -81,6 +81,8 @@ namespace DefaultNamespace
             {
                 yield return null;
             }
+
+            GameInfo.Instance.IsRunning = false;
             
             EndScreen.gameObject.SetActive(true);
             SoundManager.Instance.PlaySFX("sfx_win_congratulations", false);
