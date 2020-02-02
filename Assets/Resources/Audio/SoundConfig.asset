@@ -39,3 +39,7 @@ MonoBehaviour:
     SoundClip: {fileID: 8300000, guid: dfcd4434c29b4a94483f413f327c614e, type: 3}
   - SoundName: sfx_win_congratulations
     SoundClip: {fileID: 8300000, guid: df8feeb1e1e91734a98382631443c627, type: 3}
+  - SoundName: bgm_menu
+    SoundClip: {fileID: 8300000, guid: 5f726a6c9f020404abfa16159ed0ebf6, type: 3}
+  - SoundName: bgm_gameplay
+    SoundClip: {fileID: 8300000, guid: 851b8d48e7ba59344bec6e4266b59924, type: 3}

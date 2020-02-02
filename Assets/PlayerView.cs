@@ -33,12 +33,17 @@ namespace DefaultNamespace
         {
             if (!CanControl())
                 return;
+<<<<<<< HEAD
 
             var absSpeed = Mathf.Abs(xMovement);
 
+=======
+            var absSpeed = Mathf.Abs(xMovement);
+>>>>>>> 4f1074b30fe948b72b4100d3efa31d18d855b8c3
             move.x = xMovement;
             direction = absSpeed > 0.2f ? xMovement : direction;
-            Animator.transform.localScale = new Vector3(Mathf.Sign(direction), Animator.transform.localScale.y);
+            var newScale = direction > 0 ? 0.25f : -0.25f;
+            this.transform.localScale = new Vector3(newScale , this.transform.localScale.y);
             Animator.SetFloat(RunSpeed, absSpeed);
         }
 
@@ -65,11 +70,18 @@ namespace DefaultNamespace
         {
             SoundManager.Instance.PlaySFX("sfx_char_stun", false);
             isStuned = true;
+
+            Animator.SetTrigger("Stun");
+
             var rndX = Random.Range(0.2f, 0.5f);
             var rndY = Random.Range(0.2f, 0.5f);
             Vector3 variatingDirection = new Vector3( rndX, rndY);
             playerController.Throw(variatingDirection);
-            StartCoroutine(GameConstants.WaitForTime(GameConstants.STUNNED_TIME, () => { isStuned = false; }));
+
+            StartCoroutine(GameConstants.WaitForTime(GameConstants.STUNNED_TIME, () => {
+                isStuned = false;
+                Animator.SetTrigger("Restore");
+            }));
 
             ParticleManager.Instance.InstantiateParticle("FX_Stun", holdingPosition.transform, true);
         }
