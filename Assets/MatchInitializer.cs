@@ -52,6 +52,7 @@ namespace DefaultNamespace
             }
             
             EndScreen.gameObject.SetActive(true);
+            SoundManager.Instance.PlaySFX("sfx_win_congratulations", false);
             EndScreen.VictoryLabel.text =
                 $"{(tank1.tankController.IsAlive() ? "<color=blue>BLUE</color>" : "<color=red>RED</color>")} TEAM WINS!";
         }

@@ -24,6 +24,10 @@ public class TankController
     public void TakeDamage()
     {
         life--;
+        if (life <= 0)
+        {
+            SoundManager.Instance.PlaySFX("sfx_tank_explode", false);
+        }
     }
     
     public TankController(TankGraphics graphics, Team tankTeam)
@@ -42,6 +46,8 @@ public class TankController
 
     public void AddBullet(Bullet bulletInside)
     {
+        SoundManager.Instance.PlaySFX("sfx_tank_repair", false);
+        
         bullet = bulletInside;
 
         bullet.transform.SetParent(tankGraphics.transform);

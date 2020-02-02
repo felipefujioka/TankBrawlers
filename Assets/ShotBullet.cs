@@ -22,6 +22,7 @@ public class ShotBullet : MonoBehaviour
             tankAnimator.SetTrigger(TankGraphics.reset);
             print("BOOM... e feijoada");
             col.gameObject.GetComponent<TankGraphics>().tankController.TakeDamage();
+            SoundManager.Instance.PlaySFX("sfx_tank_damage", false);
         }
     }
 }

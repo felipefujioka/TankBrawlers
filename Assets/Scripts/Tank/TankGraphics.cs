@@ -80,6 +80,7 @@ public class TankGraphics : MonoBehaviour
 
                     tankController.AddBullet(bullet);
 
+                    SoundManager.Instance.PlaySFX("sfx_tank_shoot", false);
                     animator.SetTrigger(shoot);
 
                     tankController.RemoveBullet();

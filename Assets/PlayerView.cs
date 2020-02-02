@@ -62,6 +62,7 @@ namespace DefaultNamespace
 
         public void TryStun()
         {
+            SoundManager.Instance.PlaySFX("sfx_char_stun", false);
             isStuned = true;
             StartCoroutine(GameConstants.WaitForTime(GameConstants.STUNNED_TIME, () => { isStuned = false; }));
         }
