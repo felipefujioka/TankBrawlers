@@ -44,6 +44,11 @@ namespace DefaultNamespace
                 PlayerControllers.Add(player);
             }
 
+            var tank1 = Tanks[0];
+            var tank2 = Tanks[1];
+            tank1.enemyTank = tank2;
+            tank2.enemyTank = tank1;
+
             StartCoroutine(IntroRoutine());
             StartCoroutine(MatchRoutine());
         }
@@ -55,8 +60,8 @@ namespace DefaultNamespace
             GameInfo.Instance.IsRunning = false;
             var tank1 = Tanks[0];
             var tank2 = Tanks[1];
-            tank1.ExecuteShot();
-            tank2.ExecuteShot();
+            tank1.ExecuteShot(true);
+            tank2.ExecuteShot(true);
             
             //Destroy tanks
             

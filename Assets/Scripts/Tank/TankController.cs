@@ -6,7 +6,7 @@ using UnityEngine;
 public class TankController
 {
     public Team TankTeam;
-    public int CurrentLife;
+    public int CurrentLife => life;
     public List<TankSlot> TankSlots;
     private int filledSlots => TankSlots.FindAll(s => s.IsFilled).Count;
     public bool isRepaired => TankSlots.Count == filledSlots;

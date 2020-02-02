@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ShotBullet : MonoBehaviour
 {
@@ -12,6 +10,8 @@ public class ShotBullet : MonoBehaviour
         if (col.gameObject.tag == GameConstants.BULLET_TAG)
         {
             tankAnimator.SetTrigger(TankGraphics.reset);
+            SoundManager.Instance.StopBGM();
+            SoundManager.Instance.PlaySFX("sfx_tank_explode", false);
             //vfx
         }
     }
@@ -20,6 +20,7 @@ public class ShotBullet : MonoBehaviour
     {
         if (col.gameObject.layer == GameConstants.TANK_LAYER && col.gameObject != tank)
         {
+            SoundManager.Instance.StopBGM();
             tankAnimator.SetTrigger(TankGraphics.reset);
             col.gameObject.GetComponent<TankGraphics>().tankController.TakeDamage();
         }
