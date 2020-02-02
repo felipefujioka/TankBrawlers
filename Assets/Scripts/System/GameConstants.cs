@@ -5,7 +5,7 @@ using UnityEngine;
 public static class GameConstants
 {
     public static float BEGIN_INTRO_DELAY = 2f;
-    public static float INTRO_LENGTH = 5f;
+    public static float INTRO_LENGTH = 2.5f;
     
     public static int PROPS_LAYER = 19;
     public static int TANK_LAYER = 20;

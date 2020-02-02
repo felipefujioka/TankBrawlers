@@ -24,7 +24,7 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            InitScreen.SetActive(true);
+            //InitScreen.SetActive(true);
             
             PlayerControllers = new List<PlayerController>();
             for (int i = 0; i < 2; i++)
