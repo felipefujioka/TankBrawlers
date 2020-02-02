@@ -55,7 +55,7 @@ public class TankGraphics : MonoBehaviour
                     for (int i = 0; i < tankController.TankSlots.Count; i++)
                     {
                         var slot = tankController.TankSlots[i];
-                        if(slot.Id == piece.Id && team == piece.color)
+                        if(slot.Id == piece.Id && team == piece.team)
                         {
                             TankSlotsGraphics[i].AddSlotPiece(piece);
                             playerController.holdingProp = null;
@@ -118,6 +118,10 @@ public class TankGraphics : MonoBehaviour
         }
 
         callback();
+        
+        tankSlider.gameObject.SetActive(false);
+        StopCoroutine(sliderRoutine);
+        sliderRoutine = null;
 
         tankSlider.gameObject.SetActive(false);
     }
@@ -139,7 +143,7 @@ public class TankGraphics : MonoBehaviour
         if (collider.tag == GameConstants.PLAYER_TAG && isHolding)
         {
             PlayerController playerController = collider.GetComponent<PlayerView>().playerController;
-            if (playerController.holdingProp == null || playerController.holdingProp is DestructiveProp)
+            if (playerController.playerTeam == team && (playerController.holdingProp == null || playerController.holdingProp is DestructiveProp))
             {
                 isHolding = false;
             }

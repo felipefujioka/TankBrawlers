@@ -35,7 +35,7 @@ namespace DefaultNamespace
                 player.view = view;
                 view.playerController = player;
                 player.ID = i + 1;
-                
+                player.playerTeam = i == 0 ? Team.Blue : Team.Red;
                 PlayerControllers.Add(player);
             }
 
