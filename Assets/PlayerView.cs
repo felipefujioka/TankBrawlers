@@ -32,12 +32,11 @@ namespace DefaultNamespace
         {
             if (isStuned)
                 return;
-            
             var absSpeed = Mathf.Abs(xMovement);
-            
             move.x = xMovement;
             direction = absSpeed > 0.2f ? xMovement : direction;
-            Animator.transform.localScale = new Vector3(Mathf.Sign(direction), Animator.transform.localScale.y);
+            var newScale = direction > 0 ? 0.25f : -0.25f;
+            this.transform.localScale = new Vector3(newScale , this.transform.localScale.y);
             Animator.SetFloat(RunSpeed, absSpeed);
         }
 
@@ -63,7 +62,14 @@ namespace DefaultNamespace
         public void TryStun()
         {
             isStuned = true;
-            StartCoroutine(GameConstants.WaitForTime(GameConstants.STUNNED_TIME, () => { isStuned = false; }));
+            StartCoroutine(GameConstants.WaitForTime(GameConstants.STUNNED_TIME, () =>
+                    {
+                        isStuned = false; 
+                        Animator.SetTrigger("Restore");
+                    }
+                )
+            );
+            Animator.SetTrigger("Stun");
         }
 
         public Prop TryGrab(Vector2 direction)
