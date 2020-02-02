@@ -197,6 +197,7 @@ public class TankGraphics : MonoBehaviour
         TankShoot();
         TankDestruction();
         Destroy(holdingProp?.gameObject);
+//        tankController.TankSlots.Clear();
     }
 
     private void TankDestruction()
@@ -220,7 +221,7 @@ public class TankGraphics : MonoBehaviour
             .SetEase(ShootAnimationCurve);
         var verticalTweenUp = bullet.transform.DOMoveY(EnemyTank.transform.position.y + ShootHeight,
             ProjectileTravelTime / 2f);
-        var verticalTweenDown = bullet.transform.DOMoveY(EnemyTank.transform.position.y,
+        var verticalTweenDown = bullet.transform.DOMoveY(EnemyTank.transform.position.y + 1f,
             ProjectileTravelTime / 2f);
 
         var verticalSequence = DOTween.Sequence();
