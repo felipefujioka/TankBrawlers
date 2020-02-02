@@ -9,7 +9,8 @@ public class IndestructibleProp : Prop
         {
             var direction = collision.contacts[0].normal;
             rigidbody.velocity = new Vector2(direction.x * 5, 5);
-            CanStun = false;
         }
+        
+        CanStun = false;
     }
 }

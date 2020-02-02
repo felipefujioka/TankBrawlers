@@ -13,10 +13,10 @@ public class DestructiveProp : Prop
                 other.gameObject.GetComponent<DestructiveProp>().Destroy();
             }
 
-            CanStun = false;
-
             Destroy();
         }
+        
+        CanStun = false;
     }
 
     public void Destroy()

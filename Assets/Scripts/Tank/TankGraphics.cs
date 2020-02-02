@@ -251,7 +251,7 @@ public class TankGraphics : MonoBehaviour
         var verticalTweenUp = bullet.transform.DOMoveY(EnemyTank.transform.position.y + ShootHeight,
             ProjectileTravelTime / 2f);
         var verticalTweenDown = bullet.transform.DOMoveY(EnemyTank.transform.position.y + 1f,
-            ProjectileTravelTime / 2f + 0.5f);
+            ProjectileTravelTime / 2f + 1f);
 
         var verticalSequence = DOTween.Sequence();
         verticalSequence.Append(verticalTweenUp).Append(verticalTweenDown).SetEase(ShootAnimationCurve);
