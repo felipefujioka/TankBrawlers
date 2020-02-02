@@ -10,12 +10,12 @@ namespace DefaultNamespace
         
         public Animator Animator;
         public Transform Center;
-        
+
         public float maxSpeed = 7;
         public float jumpTakeOffSpeed = 7;
 
         public Transform holdingPosition;
-        
+
         public PlayerController playerController;
 
         private Vector2 move;
@@ -25,7 +25,7 @@ namespace DefaultNamespace
         private Prop highlightedProp;
 
         private bool isStuned;
-        
+
         private RaycastHit2D[] grabHitBuffer = new RaycastHit2D[16];
         private static readonly int RunSpeed = Animator.StringToHash("RunSpeed");
         private static readonly int Grounded = Animator.StringToHash("Grounded");
@@ -34,6 +34,7 @@ namespace DefaultNamespace
         {
             if (!CanControl())
                 return;
+
             var absSpeed = Mathf.Abs(xMovement);
             move.x = xMovement;
             direction = absSpeed > 0.2f ? xMovement : direction;
@@ -56,9 +57,9 @@ namespace DefaultNamespace
         {
             if (!CanControl())
                 return;
-            
+
             targetVelocity = move * maxSpeed;
-            
+
             Animator.SetBool(Grounded, grounded);
         }
 
@@ -66,18 +67,20 @@ namespace DefaultNamespace
         {
             SoundManager.Instance.PlaySFX("sfx_char_stun", false);
             isStuned = true;
-            
+
             Animator.SetTrigger("Stun");
-            
+
             var rndX = Random.Range(0.2f, 0.5f);
             var rndY = Random.Range(0.2f, 0.5f);
             Vector3 variatingDirection = new Vector3( rndX, rndY);
             playerController.Throw(variatingDirection);
-            
+
             StartCoroutine(GameConstants.WaitForTime(GameConstants.STUNNED_TIME, () => {
-                isStuned = false; 
+                isStuned = false;
                 Animator.SetTrigger("Restore");
             }));
+
+            ParticleManager.Instance.InstantiateParticle("FX_Stun", holdingPosition.transform, true);
         }
 
         public void SetLookingDirection(Vector2 direction)
@@ -94,10 +97,10 @@ namespace DefaultNamespace
         {
             if (!CanControl())
                 return null;
-            
+
             var count = Physics2D.RaycastNonAlloc(Center.transform.position, direction, grabHitBuffer,
                 1f);
-            
+
             Debug.DrawRay(Center.transform.position, direction, Color.red);
 
             for (int i = 0; i < count; i++)
@@ -121,10 +124,10 @@ namespace DefaultNamespace
         {
             if (!CanControl())
                 return;
-            
+
             var count = Physics2D.RaycastNonAlloc(Center.transform.position, direction, grabHitBuffer,
                 1f);
-            
+
             Debug.DrawRay(Center.transform.position, direction, Color.red);
 
             for (int i = 0; i < count; i++)
@@ -141,7 +144,7 @@ namespace DefaultNamespace
                     {
                         if(highlightedProp != null)
                             highlightedProp.DisableHighlight();
-                        
+
                         highlightedProp = prop;
                         highlightedProp.HighlightProp();
                     }
