@@ -55,24 +55,24 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.51666665
         value: {x: 1.187, y: 1.553, z: 0}
-        inSlope: {x: 0.6704, y: 0.586, z: 0}
-        outSlope: {x: 0.6704, y: 0.586, z: 0}
+        inSlope: {x: 0.58465123, y: 0.52604645, z: 0}
+        outSlope: {x: 0.58465123, y: 0.52604645, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 2.5
-        value: {x: 6.866, y: 2.641, z: 0}
-        inSlope: {x: 2.6268399, y: 0, z: 0}
-        outSlope: {x: 2.6268399, y: 0, z: 0}
+        time: 2.8666666
+        value: {x: 8.450391, y: 3.54, z: 0}
+        inSlope: {x: 2.947137, y: 0, z: 0}
+        outSlope: {x: 2.947137, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 5
-        value: {x: 12.964, y: 0.402, z: 0}
+        value: {x: 14.4, y: 0.402, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -84,26 +84,7 @@ AnimationClip:
       m_RotationOrder: 4
     path: BulletBase (1)
   m_ScaleCurves: []
-  m_FloatCurves:
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_IsActive
-    path: BulletBase (1)
-    classID: 1
-    script: {fileID: 0}
+  m_FloatCurves: []
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -125,13 +106,6 @@ AnimationClip:
       script: {fileID: 0}
       typeID: 4
       customType: 4
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3007242172
-      attribute: 2086281974
-      script: {fileID: 0}
-      typeID: 1
-      customType: 0
       isPPtrCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
@@ -170,24 +144,24 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.51666665
         value: 1.187
-        inSlope: 0.6704
-        outSlope: 0.6704
+        inSlope: 0.58465123
+        outSlope: 0.58465123
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2.5
-        value: 6.866
-        inSlope: 2.6268399
-        outSlope: 2.6268399
+        time: 2.8666666
+        value: 8.450391
+        inSlope: 2.947137
+        outSlope: 2.947137
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 5
-        value: 12.964
+        value: 14.4
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -216,15 +190,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.51666665
         value: 1.553
-        inSlope: 0.586
-        outSlope: 0.586
+        inSlope: 0.52604645
+        outSlope: 0.52604645
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2.5
-        value: 2.641
+        time: 2.8666666
+        value: 3.54
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -269,7 +243,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2.5
+        time: 2.8666666
         value: 0
         inSlope: 0
         outSlope: 0
@@ -292,25 +266,6 @@ AnimationClip:
     attribute: m_LocalPosition.z
     path: BulletBase (1)
     classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_IsActive
-    path: BulletBase (1)
-    classID: 1
     script: {fileID: 0}
   - curve:
       serializedVersion: 2

@@ -118,6 +118,10 @@ public class TankGraphics : MonoBehaviour
         }
 
         callback();
+        
+        tankSlider.gameObject.SetActive(false);
+        StopCoroutine(sliderRoutine);
+        sliderRoutine = null;
 
         tankSlider.gameObject.SetActive(false);
     }

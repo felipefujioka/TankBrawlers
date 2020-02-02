@@ -698,6 +698,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 3400875146105235947, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3563908614935260041, guid: ccaa44ff218b2df46bd30c27130a0d67,
         type: 3}
       propertyPath: m_BodyType
@@ -717,6 +722,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370132749522698957, guid: ccaa44ff218b2df46bd30c27130a0d67,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8436058106730477168, guid: ccaa44ff218b2df46bd30c27130a0d67,
         type: 3}
