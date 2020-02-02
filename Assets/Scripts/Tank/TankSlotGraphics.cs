@@ -1,13 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class TankSlotGraphics : MonoBehaviour
 {
-    private TankSlot tankSlot;
-
-    public void SetupTankSlot(TankSlot slot)
-    {
-        tankSlot = slot;
-    }
+    public TankSlot tankSlot;
 
     public void AddSlotPiece(TankPiece piece)
     {
@@ -30,11 +26,11 @@ public class TankSlotGraphics : MonoBehaviour
             piece.EnableGravity();
             piece.colliderInProps.enabled = true;
 
-            Vector3 centerPosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2));
-            Vector3 throwDirection = (piece.transform.position - centerPosition).normalized;
-            Vector3 variatingDirection = new Vector3(throwDirection.x + Random.Range(-0.2f, 0.2f),
-                throwDirection.y + Random.Range(-0.2f, 0.2f));
-            piece.ThrowProp(variatingDirection, null, 20);
+            var rndX = Random.Range(0.8f, 1f);
+            var rndY = Random.Range(0.8f, 1f);
+            Vector3 variatingDirection = new Vector3(piece.team == Team.Blue ? rndX * -1 : rndX, rndY);
+        
+            piece.ThrowProp(variatingDirection, null);
             
             tankSlot.Piece = null;
         }

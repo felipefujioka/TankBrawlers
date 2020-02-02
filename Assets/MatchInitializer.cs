@@ -45,11 +45,13 @@ namespace DefaultNamespace
 
         IEnumerator IntroRoutine()
         {
+            yield return new WaitForSeconds(GameConstants.BEGIN_INTRO_DELAY);
+
             GameInfo.Instance.IsRunning = false;
             var tank1 = Tanks[0];
             var tank2 = Tanks[1];
-            tank1.TankShoot();
-            tank2.TankShoot();
+            tank1.ExecuteShot();
+            tank2.ExecuteShot();
             
             //Destroy tanks
             

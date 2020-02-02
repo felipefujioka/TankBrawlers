@@ -6,7 +6,7 @@ using UnityEngine;
 
 public abstract class Prop: MonoBehaviour
 {
-    public float ThrowBoost = 5f;
+    private float ThrowBoost = 5f;
     public bool CanStun;
     public PlayerView throwingPlayer;
     public Rigidbody2D rigidbody;
@@ -20,6 +20,13 @@ public abstract class Prop: MonoBehaviour
         propSprite.material.SetFloat(GameConstants.OUTLINE_BRIGHTNESS_TAG, 0f);
         propSprite.material.SetColor(GameConstants.OUTLINE_COLOR, Color.yellow);
         propSprite.material.SetFloat(GameConstants.OUTLINE_WIDTH, 0.01f);
+
+        if (this is Bullet)
+            ThrowBoost = GameConstants.THROW_FORCE_BULLET;
+        if (this is TankPiece)
+            ThrowBoost = GameConstants.THROW_FORCE_PIECE;
+        if (this is DestructiveProp)
+            ThrowBoost = GameConstants.THROW_FORCE_DESTRUCTIBLE;
 
         StartCoroutine(DisableParachute());
     }
@@ -50,12 +57,12 @@ public abstract class Prop: MonoBehaviour
         collider.enabled = true;
     }
 
-    public void ThrowProp(Vector3 direction, PlayerView playerView, float boost = 0)
+    public void ThrowProp(Vector3 direction, PlayerView playerView)
     {
-        CanStun = true;
+        CanStun = playerView != null;
         throwingPlayer = playerView;
         transform.SetParent(null);
-        rigidbody.velocity = direction * (ThrowBoost + boost);
+        rigidbody.velocity = direction * ThrowBoost;
         rigidbody.gravityScale = 1f;
         rigidbody.bodyType = RigidbodyType2D.Dynamic;
         collider.enabled = true;

@@ -44,26 +44,6 @@ public class TankController
         TankSlots = new List<TankSlot>();
         TankTeam = tankTeam;
 
-        for (int i = 0; i < GameConstants.TANK_SLOTS; i++)
-        {
-            TankSlot slot = new TankSlot {Id = "slot" + i};
-            TankSlots.Add(slot);
-        }
-
         tankGraphics = graphics;
-    }
-
-    public void AddBullet(Bullet bulletInside)
-    {
-        bullet = bulletInside;
-
-        bullet.transform.SetParent(tankGraphics.transform);
-        bullet.gameObject.SetActive(false);
-    }
-
-    public void RemoveBullet()
-    {
-        MonoBehaviour.Destroy(bullet.gameObject);
-        bullet = null;
     }
 }

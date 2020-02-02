@@ -36,9 +36,9 @@ public class TankGraphics : MonoBehaviour
 
     private void LoadTankSlots()
     {
-        for (int i = 0; i < tankController.TankSlots.Count; i++)
+        for (int i = 0; i < TankSlotsGraphics.Count; i++)
         {
-            TankSlotsGraphics[i].SetupTankSlot(tankController.TankSlots[i]);
+            tankController.TankSlots.Add(TankSlotsGraphics[i].tankSlot);
         }
     }
 
@@ -52,24 +52,7 @@ public class TankGraphics : MonoBehaviour
             {
                 holdingProp = playerController.holdingProp;
                 repairIcon.SetActive(true);
-                sliderRoutine = StartCoroutine(SliderRoutine(() =>
-                {
-                    TankPiece piece = playerController.holdingProp as TankPiece;
-                    for (int i = 0; i < tankController.TankSlots.Count; i++)
-                    {
-                        var slot = tankController.TankSlots[i];
-                        if(slot.Id == piece.Id && team == piece.team)
-                        {
-                            TankSlotsGraphics[i].AddSlotPiece(piece);
-                            playerController.holdingProp = null;
-                            
-                        }
-                    }
-                    if(tankController.isRepaired)
-                    {
-                        canShoot = true;
-                    }
-                }));
+                sliderRoutine = StartCoroutine(SliderRoutine(() => { ExecuteAddPiece(playerController); }));
             }
             
             if (playerController.holdingProp is Bullet && canShoot)
@@ -80,12 +63,29 @@ public class TankGraphics : MonoBehaviour
 
                 sliderRoutine = StartCoroutine(SliderRoutine(() =>
                 {
-                    TankShoot();
-                    TankDestruction();
-                    Destroy(holdingProp.gameObject);
                     playerController.holdingProp = null;
+                    ExecuteShot();
                 }));
             }
+        }
+    }
+
+    private void ExecuteAddPiece(PlayerController playerController)
+    {
+        TankPiece piece = playerController.holdingProp as TankPiece;
+        for (int i = 0; i < tankController.TankSlots.Count; i++)
+        {
+            var slot = tankController.TankSlots[i];
+            if (slot.Id == piece.Id && team == piece.team)
+            {
+                TankSlotsGraphics[i].AddSlotPiece(piece);
+                playerController.holdingProp = null;
+            }
+        }
+
+        if (tankController.isRepaired)
+        {
+            canShoot = true;
         }
     }
 
@@ -147,6 +147,13 @@ public class TankGraphics : MonoBehaviour
                 isHolding = false;
             }
         }
+    }
+
+    public void ExecuteShot()
+    {
+        TankShoot();
+        TankDestruction();
+        Destroy(holdingProp?.gameObject);
     }
 
     private void TankDestruction()
