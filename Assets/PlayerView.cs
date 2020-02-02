@@ -1,6 +1,7 @@
 using System;
 using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
@@ -63,6 +64,10 @@ namespace DefaultNamespace
         public void TryStun()
         {
             isStuned = true;
+            var rndX = Random.Range(0.2f, 0.5f);
+            var rndY = Random.Range(0.2f, 0.5f);
+            Vector3 variatingDirection = new Vector3( rndX, rndY);
+            playerController.Throw(variatingDirection);
             StartCoroutine(GameConstants.WaitForTime(GameConstants.STUNNED_TIME, () => { isStuned = false; }));
         }
 
