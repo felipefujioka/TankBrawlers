@@ -33,6 +33,7 @@ namespace DefaultNamespace
                 var spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Count)];
                 view.transform.position = spawnPoint.position;
                 player.view = view;
+                view.playerController = player;
                 player.ID = i + 1;
                 
                 PlayerControllers.Add(player);
@@ -69,6 +70,11 @@ namespace DefaultNamespace
             var vertical = Input.GetAxis(GameInput.GetInput(playerController.ID, "Vertical"));
 
             playerController.ApplyHorizontalMovement(horizontal);
+            
+            if(horizontal== 0 && vertical == 0)
+                playerController.DisableTarget();
+            else
+                playerController.TargetProp(new Vector2(horizontal, -vertical));
 
             if (Input.GetButtonDown(GameInput.GetInput(playerController.ID, "Jump")))
             {

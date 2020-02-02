@@ -1,16 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 public class TankPiece : IndestructibleProp
 {
-    private Team team;
+    public Team team;
     public string Id;
     
     public Team color;
 
-    private void Start()
-    {        
+    IEnumerator Start()
+    {
+        yield return null;
         if(color == Team.Blue)
-            gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+            gameObject.GetComponent<SpriteRenderer>().material.SetColor(GameConstants.OUTLINE_FILL_COLOR, Color.blue);
         else
-            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            gameObject.GetComponent<SpriteRenderer>().material.SetColor(GameConstants.OUTLINE_FILL_COLOR, Color.red);
     }
 }

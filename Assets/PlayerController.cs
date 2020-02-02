@@ -8,15 +8,18 @@ public class PlayerController
     public int ID;
 
     public PlayerView view;
+
+    public Team playerTeam;
+    
     public bool IsGrabbing { get; set; }
 
     private float horizontalMovement;
 
     private Prop holdingPropRef;
+    
     private static readonly int Grab1 = Animator.StringToHash("Grab");
     private static readonly int Throw1 = Animator.StringToHash("Throw");
-
-    private Prop holdingProp
+    public Prop holdingProp
     {
         get => holdingPropRef;
         set
@@ -35,6 +38,16 @@ public class PlayerController
     {
         Debug.Log("JUMP!");
         view.SetVerticalMovement(view.jumpTakeOffSpeed);
+    }
+
+    public void TargetProp(Vector2 direction)
+    {
+        view.TryHighlight(direction);
+    }
+
+    public void DisableTarget()
+    {
+        view.DisableHighlight();
     }
 
     public void Grab(Vector2 direction)

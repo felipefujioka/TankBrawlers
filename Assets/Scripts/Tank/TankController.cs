@@ -33,7 +33,7 @@ public class TankController
 
         for (int i = 0; i < GameConstants.TANK_SLOTS; i++)
         {
-            TankSlot slot = new TankSlot{Id= "slot" + i};
+            TankSlot slot = new TankSlot {Id = "slot" + i};
             TankSlots.Add(slot);
         }
 
@@ -45,11 +45,12 @@ public class TankController
         bullet = bulletInside;
 
         bullet.transform.SetParent(tankGraphics.transform);
-        bullet.transform.localPosition = Vector3.zero;
+        bullet.gameObject.SetActive(false);
     }
 
     public void RemoveBullet()
     {
+        MonoBehaviour.Destroy(bullet.gameObject);
         bullet = null;
     }
 }

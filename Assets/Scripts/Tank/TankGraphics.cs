@@ -1,25 +1,30 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TankGraphics : MonoBehaviour
 {
     public List<TankSlotGraphics> TankSlotsGraphics;
     //public TankSlotGraphics tankSlotPrefab;
     public TankController tankController;
-    public Team color;
-    private bool canShoot = false;
+    public Team team;
+    private bool canShoot, isHolding;
     public Animator animator;
+    public Slider tankSlider;
+    private Coroutine sliderRoutine;
+    public GameObject repairIcon, shotIcon;
     public static readonly int shoot = Animator.StringToHash("Shoot");
     public static readonly int reset = Animator.StringToHash("Reset");
 
 
-    private void Start()
+    private void Awake()
     {
-        tankController = new TankController(this, color);
-        
-        if(color == Team.Blue)
+        tankController = new TankController(this, team);
+
+        if(team == Team.Blue)
             gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
         else
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
@@ -35,55 +40,82 @@ public class TankGraphics : MonoBehaviour
         }
     }
 
-    public void UpdateTankSlots()
+    private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.tag == GameConstants.PLAYER_TAG && sliderRoutine == null)
+        {
+            var playerController = other.GetComponent<PlayerView>().playerController;
+            if (playerController.playerTeam == team && playerController.holdingProp is TankPiece &&
+                (playerController.holdingProp as TankPiece).team == team)
+            {
+                sliderRoutine = StartCoroutine(SliderRoutine(() =>
+                {
+                    TankPiece piece = playerController.holdingProp as TankPiece;
+                    for (int i = 0; i < tankController.TankSlots.Count; i++)
+                    {
+                        var slot = tankController.TankSlots[i];
+                        if(slot.Id == piece.Id && team == piece.color)
+                        {
+                            TankSlotsGraphics[i].AddSlotPiece(piece);
+
+                            piece.cancelGravity();
+
+                            piece.colliderInProps.enabled = false;
+                        }
+                    }
+                    if(tankController.isRepaired)
+                    {
+                        canShoot = true;
+                    }
+                }));
+            }
+            
+            if (playerController.holdingProp is Bullet && canShoot)
+            {
+                sliderRoutine = StartCoroutine(SliderRoutine(() =>
+                {
+                    var bullet = playerController.holdingProp as Bullet;
+
+                    tankController.AddBullet(bullet);
+
+                    animator.SetTrigger(shoot);
+
+                    tankController.RemoveBullet();
+
+                    bullet.cancelGravity(); 
+
+                    bullet.colliderInProps.enabled = false;
+                }));
+            }
+        }
+
         
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    IEnumerator SliderRoutine(Action callback)
     {
-        if (other.gameObject.tag == GameConstants.TANK_PIECE_TAG)
+        float count = 0;
+        tankSlider.value = 0;
+        tankSlider.gameObject.SetActive(true);
+        isHolding = true;
+        while (count < GameConstants.TIME_TO_REPAIR)
         {
-            var piece = other.GetComponent<TankPiece>();
-            //if(Input.GetButtonDown("Grab1"))
-      
-            
-            for (int i = 0; i < tankController.TankSlots.Count; i++)
+            tankSlider.value = Mathf.Lerp(0f, 1f, count / GameConstants.TIME_TO_REPAIR);
+            count += Time.deltaTime;
+
+            if (!isHolding)
             {
-                var slot = tankController.TankSlots[i];
-                if(slot.Id == piece.Id && color == piece.color)
-                {
-                    TankSlotsGraphics[i].AddSlotPiece(piece);
-
-                    piece.cancelGravity();
-
-                    piece.colliderInProps.enabled = false;
-                }
+                tankSlider.gameObject.SetActive(false);
+                StopCoroutine(sliderRoutine);
+                sliderRoutine = null;
             }
 
-            if(tankController.isRepaired)
-            {
-                canShoot = true;
-
-                //if futuro do input do jogador
-            }
+            yield return null;
         }
 
-        if (other.gameObject.tag == GameConstants.BULLET_TAG && canShoot)
-        {
-            var bullet = other.GetComponent<Bullet>();
-            //if(Input.GetButtonDown("Grab1"))
+        callback();
 
-            tankController.AddBullet(bullet);
-
-            animator.SetTrigger(shoot);
-
-            tankController.RemoveBullet();
-
-            bullet.cancelGravity(); 
-
-            bullet.colliderInProps.enabled = false; 
-        }
+        tankSlider.gameObject.SetActive(false);
     }
 
     private void OnTriggerExit2D(Collider2D collider)
@@ -91,6 +123,18 @@ public class TankGraphics : MonoBehaviour
         if(collider.gameObject.layer == GameConstants.PROPS_LAYER)
         {
             collider.enabled = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collider)
+    {
+        if (collider.tag == GameConstants.PLAYER_TAG && isHolding)
+        {
+            PlayerController playerController = collider.GetComponent<PlayerView>().playerController;
+            if (playerController.holdingProp == null || !(playerController.holdingProp is TankPiece) && !(playerController.holdingProp is Bullet))
+            {
+                isHolding = false;
+            }
         }
     }
 }
