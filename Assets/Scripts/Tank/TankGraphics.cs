@@ -97,8 +97,7 @@ public class TankGraphics : MonoBehaviour
                 holdingProp = playerController.holdingProp;
 
                 shotIcon.SetActive(true);
-
-                SoundManager.Instance.PlaySFX("sfx_tank_reload", true);
+                
                 sliderRoutine = StartCoroutine(SliderRoutine(() =>
                 {
                     playerController.holdingProp = null;
