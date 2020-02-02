@@ -6,7 +6,7 @@ using UnityEngine;
 public class TankController
 {
     public Team TankTeam;
-    public int CurrentLife;
+    public int CurrentLife => life;
     public List<TankSlot> TankSlots;
     private int filledSlots => TankSlots.FindAll(s => s.IsFilled).Count;
     public bool isRepaired => TankSlots.Count == filledSlots;
@@ -16,7 +16,7 @@ public class TankController
     private int life = GameConstants.TANK_MAX_LIFE;
 
     //TODO remove
-    private float timer = 0; 
+    private float timer = 0;
     public bool IsAlive()
     {
         return life > 0;
@@ -27,18 +27,23 @@ public class TankController
         if (canTakeDamage)
         {
             canTakeDamage = false;
+            SoundManager.Instance.PlaySFX("sfx_tank_damage", false);
             tankGraphics.StartCoroutine(ShotReset());
         }
     }
-    
+
     IEnumerator ShotReset()
     {
         yield return null;
         canTakeDamage = true;
         life--;
+        if (life <= 0)
+        {
+            SoundManager.Instance.PlaySFX("sfx_tank_explode", false);
+        }
         tankGraphics.lifeFill.fillAmount = (float)life / GameConstants.TANK_MAX_LIFE;
     }
-    
+
     public TankController(TankGraphics graphics, Team tankTeam)
     {
         TankSlots = new List<TankSlot>();

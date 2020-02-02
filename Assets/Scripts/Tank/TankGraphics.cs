@@ -19,18 +19,40 @@ public class TankGraphics : MonoBehaviour
 
     //public TankSlotGraphics tankSlotPrefab;
     public TankController tankController;
-    public Team team;
     private bool canShoot, isHolding;
+    
+    public Team team;
+    public TankGraphics enemyTank;
+    
     private Prop holdingProp;
+    
     public Animator animator;
-    public Slider tankSlider;
-    private Coroutine sliderRoutine;
-    public Image lifeFill;
     public GameObject repairIcon, shotIcon;
+    private Coroutine sliderRoutine;
+    public Slider tankSlider;
+    public Image lifeFill;
+    
     public static readonly int shoot = Animator.StringToHash("Shoot");
     public static readonly int reset = Animator.StringToHash("Reset");
     public static readonly int intro = Animator.StringToHash("Intro");
 
+    public string underAttackBgm
+    {
+        get
+        {
+            switch (tankController.CurrentLife)
+            {
+                case 3:
+                    return "bgm_plantao_globo"; 
+                case 2:
+                    return "bgm_ameno";
+                case 1:
+                    return "bgm_ameno_super";
+                default:
+                    return "avisa o Gavinhos que deu ruim";
+            }
+        }
+    }
 
     private void Awake()
     {
@@ -61,6 +83,7 @@ public class TankGraphics : MonoBehaviour
             {
                 holdingProp = playerController.holdingProp;
                 repairIcon.SetActive(true);
+                SoundManager.Instance.PlaySFX("sfx_tank_repair", true);
                 sliderRoutine = StartCoroutine(SliderRoutine(() => { ExecuteAddPiece(playerController); }));
             }
 
@@ -70,6 +93,7 @@ public class TankGraphics : MonoBehaviour
 
                 shotIcon.SetActive(true);
 
+                SoundManager.Instance.PlaySFX("sfx_tank_reload", true);
                 sliderRoutine = StartCoroutine(SliderRoutine(() =>
                 {
                     playerController.holdingProp = null;
@@ -96,6 +120,8 @@ public class TankGraphics : MonoBehaviour
         {
             canShoot = true;
         }
+        
+        SoundManager.Instance.StopSFX("sfx_tank_repair");
     }
 
     IEnumerator SliderRoutine(Action callback)
@@ -159,8 +185,15 @@ public class TankGraphics : MonoBehaviour
         }
     }
 
-    public void ExecuteShot()
+    public void ExecuteShot(bool isIntro = false)
     {
+        SoundManager.Instance.StopSFX("sfx_tank_reload");
+
+        if (!isIntro)
+        {
+            SoundManager.Instance.PlayBGM(enemyTank.underAttackBgm);
+        }
+
         TankShoot();
         TankDestruction();
         Destroy(holdingProp?.gameObject);
@@ -196,6 +229,7 @@ public class TankGraphics : MonoBehaviour
         var sequence = DOTween.Sequence().Insert(0f, horizontalTween).Insert(0f, verticalSequence);
 
         sequence.Play();
+        SoundManager.Instance.PlaySFX("sfx_tank_shoot", false);
     }
 
     public void TankIntro()

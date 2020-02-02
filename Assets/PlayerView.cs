@@ -62,6 +62,7 @@ namespace DefaultNamespace
 
         public void TryStun()
         {
+            SoundManager.Instance.PlaySFX("sfx_char_stun", false);
             isStuned = true;
             
             Animator.SetTrigger("Stun");
