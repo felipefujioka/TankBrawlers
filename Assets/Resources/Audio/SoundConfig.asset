@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba006d1e569a82946b6aa8c3497f71c5, type: 3}
+  m_Name: SoundConfig
+  m_EditorClassIdentifier: 
+  SoundItems:
+  - SoundName: bgm_plantao_globo
+    SoundClip: {fileID: 8300000, guid: 2e190f6e165538e468c44738c017d3dc, type: 3}
+  - SoundName: bgm_ameno
+    SoundClip: {fileID: 8300000, guid: d87cb5521e9b79d4a98f6998786c3d8b, type: 3}
+  - SoundName: bgm_ameno_super
+    SoundClip: {fileID: 8300000, guid: 084a2a579effb68419ebb0e5e9cfcf48, type: 3}
+  - SoundName: sfx_button_press
+    SoundClip: {fileID: 8300000, guid: 578a5c1b9236c164686e76e515c83374, type: 3}
+  - SoundName: sfx_char_throw_object
+    SoundClip: {fileID: 8300000, guid: 593e85f2c38b3a147bd85bb46cdc9b59, type: 3}
+  - SoundName: sfx_char_stun
+    SoundClip: {fileID: 8300000, guid: 2b886361ab305234a871d03f37e5af71, type: 3}
+  - SoundName: sfx_tank_shoot
+    SoundClip: {fileID: 8300000, guid: f2272f32be9d63e4cb738ff5222d1b76, type: 3}
+  - SoundName: sfx_tank_repair
+    SoundClip: {fileID: 8300000, guid: 82313ade274c17e4f97684c90888a7a8, type: 3}
+  - SoundName: sfx_tank_damage
+    SoundClip: {fileID: 8300000, guid: 3465a253e5e7c4341b475db1fe525f11, type: 3}
+  - SoundName: sfx_tank_explode
+    SoundClip: {fileID: 8300000, guid: dc9b315f0cd4ec041b22032a43d6e880, type: 3}
+  - SoundName: sfx_tank_reload
+    SoundClip: {fileID: 8300000, guid: 578a5c1b9236c164686e76e515c83374, type: 3}
+  - SoundName: sfx_props_collide
+    SoundClip: {fileID: 8300000, guid: dfcd4434c29b4a94483f413f327c614e, type: 3}
+  - SoundName: sfx_win_congratulations
+    SoundClip: {fileID: 8300000, guid: df8feeb1e1e91734a98382631443c627, type: 3}

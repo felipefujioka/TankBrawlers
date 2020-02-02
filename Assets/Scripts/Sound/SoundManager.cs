@@ -14,9 +14,7 @@ public class SoundManager : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = Instantiate(Resources.Load<SoundManager>("Sound/SoundManager"));
-                
-                instance.playingAudioSources = new Dictionary<string, AudioSource>();
+                instance = Instantiate(Resources.Load<SoundManager>("Audio/SoundManager"));
                 
                 DontDestroyOnLoad(instance.gameObject);
             }
@@ -40,9 +38,11 @@ public class SoundManager : MonoBehaviour
         IsSFXMuted = PlayerPrefs.GetInt("IsSFXMuted", 0) == 1 ? IsSFXMuted = true : IsSFXMuted = false;
         
         sfxAudioSources = new List<AudioSource>();
+        playingAudioSources = new Dictionary<string, AudioSource>();
         bgmAudioSource = gameObject.AddComponent<AudioSource>();
-        soundConfig = Resources.Load<SoundConfig>("Sound/SoundConfig");
-        defaultMixer = Resources.Load<AudioMixer>("Sound/DefaultMixer");
+                
+        soundConfig = Resources.Load<SoundConfig>("Audio/SoundConfig");
+        // defaultMixer = Resources.Load<AudioMixer>("Sound/DefaultMixer");
     }
 
     private AudioSource GetAvailableAudioSource()
