@@ -77,13 +77,9 @@ public class TankGraphics : MonoBehaviour
                 sliderRoutine = StartCoroutine(SliderRoutine(() =>
                 {
                     var bullet = playerController.holdingProp as Bullet;
-
-                    tankController.AddBullet(bullet);
-
+                    
                     animator.SetTrigger(shoot);
-
-                    tankController.RemoveBullet();
-
+                    
                     bullet.cancelGravity(); 
                     
                     playerController.holdingProp = null;
