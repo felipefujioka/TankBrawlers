@@ -39,6 +39,7 @@ public class TankSlotGraphics : MonoBehaviour
             piece.ThrowProp(variatingDirection, null);
             
             tankSlot.Piece = null;
+            tankSlot.IsFilled = false;
         }
     }
 }

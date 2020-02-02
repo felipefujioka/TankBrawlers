@@ -164,6 +164,8 @@ public class TankGraphics : MonoBehaviour
     {
         if (collider.tag == GameConstants.PLAYER_TAG && isHolding)
         {
+            SoundManager.Instance.StopSFX("sfx_tank_repair");
+            SoundManager.Instance.StopSFX("sfx_tank_reload");
             PlayerController playerController = collider.GetComponent<PlayerView>().playerController;
             if (playerController.holdingProp != null || holdingProp == playerController.holdingProp)
             {
@@ -197,6 +199,7 @@ public class TankGraphics : MonoBehaviour
         TankShoot();
         TankDestruction();
         Destroy(holdingProp?.gameObject);
+//        tankController.TankSlots.Clear();
     }
 
     private void TankDestruction()
@@ -220,7 +223,7 @@ public class TankGraphics : MonoBehaviour
             .SetEase(ShootAnimationCurve);
         var verticalTweenUp = bullet.transform.DOMoveY(EnemyTank.transform.position.y + ShootHeight,
             ProjectileTravelTime / 2f);
-        var verticalTweenDown = bullet.transform.DOMoveY(EnemyTank.transform.position.y,
+        var verticalTweenDown = bullet.transform.DOMoveY(EnemyTank.transform.position.y + 1f,
             ProjectileTravelTime / 2f);
 
         var verticalSequence = DOTween.Sequence();

@@ -691,29 +691,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: -0.018229952
-      outSlope: -0.018229952
+      inSlope: 3.046993
+      outSlope: 3.046993
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.14926471
+      outWeight: 0.039669644
     - serializedVersion: 3
-      time: 0.5710744
-      value: 0.6182588
-      inSlope: 2.5943534
-      outSlope: 2.5943534
+      time: 0.50045675
+      value: 0.49579173
+      inSlope: 0.12968573
+      outSlope: 0.12968573
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.08629429
+      inWeight: 0.07143647
+      outWeight: 0.06385068
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: -0.10208822
-      outSlope: -0.10208822
+      inSlope: 3.0622327
+      outSlope: 3.0622327
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.10661763
+      inWeight: 0.041214086
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -721,11 +721,12 @@ MonoBehaviour:
   ShootHeight: 4
   ProjectileTravelTime: 5
   team: 1
+  enemyTank: {fileID: 0}
   animator: {fileID: 6107758827851490609}
-  tankSlider: {fileID: 1353347524552900622}
-  lifeFill: {fileID: 3597667049157599894}
   repairIcon: {fileID: 5810410516141541677}
   shotIcon: {fileID: 7028332179188864973}
+  tankSlider: {fileID: 1353347524552900622}
+  lifeFill: {fileID: 3597667049157599894}
 --- !u!95 &6107758827851490609
 Animator:
   serializedVersion: 3
