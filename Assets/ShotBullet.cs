@@ -12,6 +12,7 @@ public class ShotBullet : MonoBehaviour
         if (col.gameObject.tag == GameConstants.BULLET_TAG)
         {
             tankAnimator.SetTrigger(TankGraphics.reset);
+            //vfx
         }
     }
 

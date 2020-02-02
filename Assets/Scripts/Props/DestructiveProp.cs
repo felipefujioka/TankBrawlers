@@ -7,7 +7,7 @@ public class DestructiveProp : Prop
     {
         if (CanStun && other.gameObject.layer == GameConstants.PROPS_LAYER)
         {
-            if(other.gameObject.tag == "Prop")
+            if(other.gameObject.tag == GameConstants.PROP_TAG)
                 other.gameObject.GetComponent<DestructiveProp>().Destroy();
             
             Destroy();

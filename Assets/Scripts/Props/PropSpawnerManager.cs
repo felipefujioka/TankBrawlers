@@ -25,6 +25,11 @@ public class PropSpawnerManager : MonoBehaviour
 
     IEnumerator PropSpawnDelay()
     {
+        while (!GameInfo.Instance.IsRunning)
+        {
+            yield return null;
+        }
+        
         yield return new WaitForSeconds(GameConstants.PROP_SPAWN_DELAY);
         if (inStageProps.Count < GameConstants.MAX_PROP_SPAWNS &&
             inStageBullets.Count < GameConstants.MAX_BULLET_SPAWNS)
@@ -58,7 +63,7 @@ public class PropSpawnerManager : MonoBehaviour
     {
         Prop currProp = Instantiate(prop, spawnPositions[Random.Range(0, spawnPositions.Count)]);
         currProp.transform.localPosition = Vector3.zero;
-        currProp.transform.rotation = Quaternion.Euler(Vector3.zero);
+        currProp.transform.localEulerAngles = Vector3.zero;
         currProp.transform.SetParent(null);
 
         GameObject parachute = Instantiate(parachutePrefab, currProp.transform);

@@ -12,7 +12,7 @@ namespace DefaultNamespace
     {
         public List<TankGraphics> Tanks;
         
-        public List<Transform> SpawnPoints;
+        public Transform RedSpawn, BlueSpawn;
 
         public List<PlayerController> PlayerControllers;
 
@@ -30,7 +30,7 @@ namespace DefaultNamespace
             {
                 var player = new PlayerController();
                 var view = Instantiate(PlayerPrefab, transform.parent);
-                var spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Count)];
+                var spawnPoint = i == 0 ? BlueSpawn : RedSpawn;
                 view.transform.position = spawnPoint.position;
                 player.view = view;
                 view.playerController = player;
@@ -48,8 +48,8 @@ namespace DefaultNamespace
             GameInfo.Instance.IsRunning = false;
             var tank1 = Tanks[0];
             var tank2 = Tanks[1];
-            tank1.TankIntro();
-            tank2.TankIntro();
+            tank1.TankShoot();
+            tank2.TankShoot();
             
             //Destroy tanks
             

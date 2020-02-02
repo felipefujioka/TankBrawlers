@@ -1,3 +1,5 @@
-﻿public class Bullet : IndestructibleProp
+﻿
+public class Bullet : IndestructibleProp
 {
+
 }
